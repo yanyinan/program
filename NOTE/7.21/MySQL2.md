@@ -135,7 +135,7 @@ DESCRIBE dept;
 DESC dept;
 ```
 
-![image-20230721114014241](MySQL2.assets/image-20230721114014241.png)
+![image-20230721171634796](MySQL2.assets/image-20230721171634796.png)
 
 
 
@@ -144,7 +144,7 @@ DESC dept;
 创建一张`user`表, 可以存储以下内容：姓名，性别，年龄，生日，电话，家庭住址，邮箱
 
 ```shell
-	CREATE TABLE `usertest`(
+	CREATE TABLE `user`(
 		`name` VARCHAR(20) COMMENT '姓名',
 		`gender` CHAR(1) COMMENT '性别',
 		`age` INT COMMENT '年龄',
@@ -161,10 +161,9 @@ DESC dept;
 
 ```mysql
 -- 创建和dept结构一样的表
-CREATE TABLE d LIKE dept;
-
+CREATEABLE d LIKE dep
 -- 创建表
-CREATE TABLE t AS select * from dept;
+CREATE TABLE t AS select * from d
 ```
 
 ## 删除表
@@ -213,7 +212,7 @@ RENAME TABLE d TO dd;
 
 
 
-**INSERT INTO table_name VALUES(值列表)**
+**INSERT INTO table_name VALUES(值列表)** 
 
 **INSERT INTO table_name (列列表) VALUES(值列表)**
 
@@ -262,7 +261,7 @@ UPDATE dept SET deptno=5 WHERE deptname='安保部';
 ```mysql
 -- 删除数据 ,一定要加 where 条件
 DELETE FROM dept WHERE deptno=5;
--- 全部删除
+-- 全部删除c
 DELETE FROM dept;
 -- 清空/截断 所有数据(慎用)
 TRUNCATE TABLE dept;
@@ -272,8 +271,8 @@ TRUNCATE TABLE dept;
 
 * delete from dd;
 * truncate table dd;
-* delete 是清空表中的数据
-* truncate 是清空表数据，重新创建一个一样表
+* delete 是清空表中的数据,`DML`
+* truncate 是清空表数据（删除表后重新创建一个一样表），`DDL`
 
 ## where条件连接
 
@@ -384,3 +383,113 @@ source /backup/all_db_2013-09-08.sql
 
 
 
+# 高级查询
+
+## distinct
+
+ 在`select`语句中，可以使用`distinct`关键字对查询的结果集进行去重。
+
+```sql
+select distinct 列1, ... , 列n  from table_name [其他子句];
+```
+
+> 去重必须结果集中每个列的值都相同。;
+
+## order by
+
+`order by`用于对结果进行排序显示，可以使用`ASC` / `DESC`两种方式进行排序，可以有多个排序条件
+
+- `ASC`：表示升序排序，如果不写即为此排序方式
+- `DESC`：表示降序排序
+
+```sql
+select [distinct] 列1, ... , 列n from table_name [其他子句] order by 排序列1 [DESC], 排序列2 [DESC];
+```
+
+## 分页查询limit子句
+
+```properties
+select * from emp limit 0,2;
+```
+
+- 第一个参数0是表示从第几条开始查询 (这里的 0 是可以省略不写的)；
+- de第二个参数 表示查询出几条数据
+- 后面不够的，有多少写多少；
+
+```java 
+select * from emp order by empNo limit 5;
+select * from emp limit 5,5;
+
+-- 
+select * from table_name  limit (页码 - 1) * 每页数量, 每页数量;
+```
+
+
+
+
+
+## 聚合函数
+
+Mysql中内置了 5 种聚合函数，分别是：`SUM` 、`max`、`min`、`avg`、`count`。
+
+- `sum`： 求和
+
+  ```sql
+  select sum(列) from table_name [其他子句];
+  ```
+
+- `max`: 求最大值
+
+  ```sql
+  select max(列) from table_name [其他子句];
+  ```
+
+- `min`: 求最小值
+
+  ```sql
+  select min(列) from table_name [其他子句];
+  ```
+
+- `avg`： 求平均值
+
+  ```sql
+  select avg(列) from table_name [其他子句];
+  ```
+
+- `count`: 求数量
+
+  ```sql
+  select count(列) from table_name [其他子句];
+  ```
+
+## group by
+
+`group by ` 是对数据进行分组，分组时，表中有相同值的分为一组。分组后可以进行聚合查询。
+
+`group by`分组后的查询中，`select`的列不能出现除了`group by `分组条件以及聚合函数外的其他列。
+
+```sql
+select 列1, 列2, (聚合函数) from table_name group by 列1, 列2;
+```
+
+## having
+
+`having`是对`group by`分组后的结果集进行筛选。
+
+```sql
+select 列1, 列2, (聚合函数) from table_name group by 列1, 列2 having 分组后条件;
+```
+
+## 综合查询
+
+```sql
+SELECT DISTINCT emp.deptno FROM emp JOIN dept ON emp.deptno = dept.deptno WHERE bridate >= '2000-01-01' GROUP BY emp.deptno HAVING count(*) >= 2 ORDER BY count(*) DESC  LIMIT 0, 5;
+```
+
+> 书写顺序是以上。
+>
+> `SQL`语句的执行顺序
+>
+> from --> on --> join --> where --> group by --> having -->  select --> distinct-- > order by--> limit
+
+[sql语句定义和执行顺序](https://blog.csdn.net/u013887008/article/details/93377939)
