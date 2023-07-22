@@ -21,9 +21,9 @@
 # SQL 分类
 
 -  **DCL:** 数据控制语言，用来创建数据库用户，控制数据库的访问权限(见[Mysql用户操作.md](http://39.105.197.178/archives/mysql用户操作md))
-- **DDL**: 数据定义语句,数据定义语言，用来定义数据库对象（数 据库，表，字段）。 如： CREATE / ALTER / DROP
-- **DML:** 数据操纵语句,用来对数据表中的数据进 行增删改 。如：INSERT / UPDATE / DELETE 
-- **DQL**: 数据查询语句,用来创建数据库用户，控制数据库的访问权限。如：SELECT 
+-  **DDL**: 数据定义语句,数据定义语言，用来定义数据库对象（数 据库，表，字段）。 如： CREATE / ALTER / DROP
+-  **DML:** 数据操纵语句,用来对数据表中的数据进 行增删改 。如：INSERT / UPDATE / DELETE 
+-  **DQL**: 数据查询语句,用来创建数据库用户，控制数据库的访问权限。如：SELECT 
 
 > 所有的SQL都应该以英文状态下的分号结束`;`
 
@@ -366,6 +366,26 @@ select 列1, 列2, (聚合函数) from table_name group by 列1, 列2;
 select 列1, 列2, (聚合函数) from table_name group by 列1, 列2 having 分组后条件;
 ```
 
+## on和join
+
+在MySQL中，on和join函数都是用于连接两个或多个表的方法。其中，on是用于指定连接条件，而join则是用于指定连接方式。
+
+on通常用于指定连接条件，例如：
+
+```mysql
+SELECT * FROM table1 JOIN table2 ON table1.id = table2.id;   
+```
+
+这将返回两个表中具有相同id的所有行。
+
+而join则通常用于指定连接方式，例如：
+
+```mysql
+SELECT * FROM table1 JOIN table2 ON table1.id = table2.id INNER JOIN table3 ON table1.id = table3.id;   
+```
+
+这将返回所有三个表中具有相同id的行。
+
 ## 综合查询
 
 ```sql
@@ -376,6 +396,6 @@ SELECT DISTINCT emp.deptno FROM emp JOIN dept ON emp.deptno = dept.deptno WHERE 
 >
 > `SQL`语句的执行顺序
 >
-> from --> on --> join --> where --> group by --> having -->  select --> distinct-- > order by--> limit
+> from --> join --> on --> where --> group by --> having -->  select --> distinct-- > order by--> limit
 
-[sql语句定义和执行顺序](
+[sql语句定义和执行顺序]
