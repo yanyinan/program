@@ -28,6 +28,8 @@
 
 ![image-20230729130240591](https://s2.loli.net/2023/07/29/fO4xpuTI1lyCaWw.png)
 
+![image-20230729151009894](https://s2.loli.net/2023/07/29/h3wSDku1YXN4Leq.png)
+
 ## 答案：
 
 ### 1、查询1课程比2课程成绩高的学生的信息及课程分数
@@ -35,31 +37,37 @@
 #### `SQL`语句
 
 ```sql
-select good_no,goods_name,price,count from goods where count = 50;
+select stu.*,s1.score course1,s2.score course2 from student stu 
+join score s1 on stu.id = s1.student_id and s1.course_id = 1 
+join score s2 on stu.id = s2.student_id  and s2.course_id = 2
+where s1.score >s2.score;
 ```
 
 ####  结果：
 
-
+![image-20230729184454077](https://s2.loli.net/2023/07/29/CXa84EeRskJoKli.png)
 
 ### 2、查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩 
 
 #### `SQL`语句
 
 ```sql
-select good_no,goods_name,price,count from goods where count = 50;
+SELECT stu.id, stu.name, AVG(s.score) AS average_score FROM student stu, score s 
+WHERE stu.id = s.student_id 
+GROUP BY stu.id, stu.name 
+HAVING avg(s.score) >= 60;
 ```
 
 ####  结果：
 
-
+![image-20230729190133367](https://s2.loli.net/2023/07/29/qLIguNEsBT4dAOJ.png)
 
 ### 3、查询在 score 表存在成绩的学生信息
 
 #### `SQL`语句
 
 ```sql
-select good_no,goods_name,price,count from goods where count = 50;
+SELECT * FROM student WHERE id IN (SELECT student_id FROM score);
 ```
 
 ####  结果：
@@ -71,12 +79,14 @@ select good_no,goods_name,price,count from goods where count = 50;
 #### `SQL`语句
 
 ```sql
-select good_no,goods_name,price,count from goods where count = 50;
+select student.id,student.name,count(student_id) as '总数',sum(score) as '总成绩' from student 
+left join score on student.id = score.student_id 
+group by student.id,student.name;
 ```
 
 ####  结果：
 
-
+![image-20230729192747963](https://s2.loli.net/2023/07/29/YdU3blyaQqiVs4A.png)
 
 ### 5、查询学过「老张」老师授课的同学的信息 
 
