@@ -57,9 +57,9 @@
 
   * 使用USE关键词来指定要使用的数据库
 
-    ```mysql
+```mysql
     USE company_info;
-    ```
+```
 
 * 删除数据库语法结构
 
@@ -83,7 +83,7 @@
 
 * 创建数据表的语法结构
 
-  * ```mysql
+  ```mysql
     CREATE TABLE tab_name(
     
     col_name datatype default null/number comment '注释',
@@ -91,7 +91,7 @@
     col_name datatype
     
     ) [CHARACTER set 编码格式];
-    ```
+  ```
 
     
 
@@ -115,7 +115,6 @@
 
   -- 显示所有表
   SHOW tables;
-    ```
 ~~~
 
 ###     创建和某表结构一样的表
@@ -152,6 +151,12 @@ ALTER TABLE d MODIFY id VARCHAR(20);
 ```mysql
 ALTER TABLE d CHANGE id ss VARCHAR(20);	
 ```
+**MODIFY 和 CHANGE 关键字用于修改表的列名、数据类型以及列的约束。区别在于：**
+
+MODIFY 不会修改列名， CHANGE 关键字允许同时修改列名。
+
+使用 CHANGE 时，必须指定原始列名、新列名以及新的数据类型和列约束（如NOT NULL、DEFAULT等）
+ALTER TABLE tb_name CHANGE old_column_name new_column_name new_data_type new_constraints;
 
 ## 删除列
 
@@ -160,9 +165,13 @@ ALTER TABLE d DROP ss;
 ```
 
 ## 重命名表
-
+1、rename语句
 ```mysql
 RENAME TABLE d TO dd;
+```
+2、alter table 语句
+```mysql
+alter table old_table_name rename [as/to] new_table_name;
 ```
 
 ## CRUD操作
@@ -247,7 +256,17 @@ SELECT deptname FROM dept;
 -- 根据条件查询*
 SELECT deptno FROM dept WHERE deptname='销售部';
 ```
+当 sql 语句中的条件有多条时，可以将多个条件连接起来。他们之间的关系有一下几种：
+and
+a and b : 表示 需要同时满足 a 条件 和 b 条件
 
+or
+a or b : 表示 满足 a 条件 或 b 条件都可以
+
+in
+in(a, ... ,b) ： 表示在 a 及 b 这些值中都可以
+
+like :模糊查询, % 表示任意个字符 _ 表示一个字符
 ## 高级查询
 
 ### distinct
