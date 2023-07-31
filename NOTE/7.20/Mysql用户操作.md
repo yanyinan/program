@@ -61,35 +61,35 @@ values
 
 ### 1、修改用户名
 
-1. 使用`rename`语句
+使用`rename`语句
 
-   ```sql
-   rename user ‘nz’ to ‘hzm1’ # hzm：原用户； hzm1：新用户
-   ```
-
-2. 在`mysql.user`中修改用户名
-
-   #### 1、使用`update`语句
-
-   ```sql
-   update
-   mysql.user
-   set
-   authentication_string = SHA1('new_password')
-   
-   ```
-
-   
-
-
+```sql
+rename user ‘nz’ to ‘hzm1’ # hzm：原用户； hzm1：新用户
+```
 
 ### 2、修改密码
+
+#### 1、使用`set password`语句
+
+```sql
+set password for User@host = new_password;
+```
+
+#### 2、使用`update`语句
+
+```sql
+update
+mysql.user
+set
+authentication_string = SHA1('new_password')
+where = username and host = hostname;
+```
+
+#### 3、使用`alter user`语句
 
 ```shell
 set password for ‘hzm’ =password(‘12321’) #hzm：用户；12321：新密码
 ```
-
-
 
 ## 1.2修改密码
 
