@@ -1,0 +1,633 @@
+λ mysql -uroot -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| company_info       |
+| information_schema |
+| mybatis            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use company_info;
+Database changed
+mysql> show TABLES;
++------------------------+
+| Tables_in_company_info |
++------------------------+
+| dept                   |
+| test                   |
+| user                   |
+| user2                  |
++------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPT;
++--------+----------------+
+| deptno | deptname       |
++--------+----------------+
+|      3 | 开发喵·人事部 |
+|      1 | 行政部         |
+|      6 | 开发喵·组织部 |
+|      7 | 开发喵·后勤部 |
+|      8 | 开发喵·财务部 |
+|     10 | 研发部1        |
+|     10 | 研发部2        |
++--------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from user;
++------+--------+------+------------+-------------+------------+---------------------+
+| name | gender | age  | birth      | phone       | email      | create_time         |
++------+--------+------+------------+-------------+------------+---------------------+
+| 张三 | 女     |   20 | 2001-01-02 | 13212312311 | 123@qq.com | 2003-01-02 10:18:19 |
++------+--------+------+------------+-------------+------------+---------------------+
+1 row in set (0.01 sec)
+
+mysql> CREATE DATABASE scott;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE SCOTT;
+Database changed
+
+
+mysql> source d:/scott.sql
+
+Query OK, 1 row affected (0.01 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_scott |
++-----------------+
+| bonus           |
+| dept            |
+| emp             |
+| salgrade        |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+--------+-----------+------+------------+------+------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM | DEPTNO |
++-------+--------+-----------+------+------------+------+------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981-02-20 | 1600 |  300 |     30 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981-02-22 | 1250 |  500 |     30 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981-02-04 | 2975 | NULL |     20 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981-09-28 | 1250 | 1400 |     30 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981-05-01 | 2850 | NULL |     30 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981-06-09 | 2450 | NULL |     10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987-07-13 | 3000 | NULL |     20 |
+|  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981-09-08 | 1500 |    0 |     30 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987-07-13 | 1100 | NULL |     20 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981-12-03 | 3000 | NULL |     20 |
+|  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300 | NULL |     10 |
++-------+--------+-----------+------+------------+------+------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select ename, sal FROM emp WHERE sal = 800 OR ename = 'ALLEN' AND deptno = 20;
++-------+------+
+| ename | sal  |
++-------+------+
+| SMITH |  800 |
++-------+------+
+1 row in set (0.00 sec)
+
+mysql> select ename, sal FROM emp WHERE sal = 800 OR ename = 'JONES' AND deptno = 20;
++-------+------+
+| ename | sal  |
++-------+------+
+| SMITH |  800 |
+| JONES | 2975 |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select ename, sal FROM emp WHERE sal = 800 AND ename = 'JONES' OR deptno = 20;
++-------+------+
+| ename | sal  |
++-------+------+
+| SMITH |  800 |
+| JONES | 2975 |
+| SCOTT | 3000 |
+| ADAMS | 1100 |
+| FORD  | 3000 |
++-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select ename, sal, deptno FROM emp WHERE sal = 2975 AND ename = 'JONES' OR deptno = 30;
++--------+------+--------+
+| ename  | sal  | deptno |
++--------+------+--------+
+| ALLEN  | 1600 |     30 |
+| WARD   | 1250 |     30 |
+| JONES  | 2975 |     20 |
+| MARTIN | 1250 |     30 |
+| BLAKE  | 2850 |     30 |
+| TURNER | 1500 |     30 |
+| JAMES  |  950 |     30 |
++--------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select ename, sal, deptno FROM emp WHERE (sal = 2975 AND ename = 'JONES') OR deptno = 30;
++--------+------+--------+
+| ename  | sal  | deptno |
++--------+------+--------+
+| ALLEN  | 1600 |     30 |
+| WARD   | 1250 |     30 |
+| JONES  | 2975 |     20 |
+| MARTIN | 1250 |     30 |
+| BLAKE  | 2850 |     30 |
+| TURNER | 1500 |     30 |
+| JAMES  |  950 |     30 |
++--------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> mysqldump
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysqldump' at line 1
+mysql> show create table emp;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ | Table | Create Table
+
+                                                                                                                | +-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ | emp   | CREATE TABLE `emp` (
+  `EMPNO` int DEFAULT NULL,
+  `ENAME` varchar(10) DEFAULT NULL,
+  `JOB` varchar(9) DEFAULT NULL,
+  `MGR` int DEFAULT NULL,
+  `HIREDATE` date DEFAULT NULL,
+  `SAL` double DEFAULT NULL,
+  `COMM` double DEFAULT NULL,
+  `DEPTNO` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ 1 row in set (0.00 sec)
+
+mysql> -- 修改表，设置 empno 为主键列
+mysql> ALTER TABLE emp MODIFY empno INT PRIMARY KEY;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE emp;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table
+
+
+                   |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `empno` int NOT NULL,
+  `ENAME` varchar(10) DEFAULT NULL,
+  `JOB` varchar(9) DEFAULT NULL,
+  `MGR` int DEFAULT NULL,
+  `HIREDATE` date DEFAULT NULL,
+  `SAL` double DEFAULT NULL,
+  `COMM` double DEFAULT NULL,
+  `DEPTNO` int DEFAULT NULL,
+  PRIMARY KEY (`empno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> -- 创建表时添加主键约束
+mysql> CREATE TABLE student(
+    -> id INT PRIMARY KEY
+    -> ,name VARCHAR(20)
+    -> ,age INT);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW CREATE TABLE student;
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table
+                                                                                             |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| student | CREATE TABLE `student` (
+  `id` int NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student VALUES(1, '张三', 18);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student(id) VALUES(1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'student.PRIMARY'
+mysql> INSERT INTO student(name, age) VALUES('张三', 18);
+ERROR 1364 (HY000): Field 'id' doesn't have a default value
+mysql> INSERT INTO student(id, name, age) VALUES('张三', 18);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO student(id, name, age) VALUES(2,'张三', 18);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 |   18 |
+|  2 | 张三 |   18 |
++----+------+------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student(id) VALUES(3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 |   18 |
+|  2 | 张三 |   18 |
+|  3 | NULL | NULL |
++----+------+------+
+3 rows in set (0.00 sec)
+
+
+mysql> DROP TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE studnt(
+    -> id INT PRIMARY KEY,
+    -> name VARCHAR(20) PRIMARY KEY);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> CREATE TABLE student(
+    -> id INT,
+    -> name VARCHAR(20),
+    -> PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DROP TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE student(
+    -> id INT,
+    -> name VARCHAR(20),
+    -> CONSTRAINT pk_id PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES(1, '李四', 18);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO student VALUES(1, '李四');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student VALUES(1, '李四');
+ERROR 1062 (23000): Duplicate entry '1' for key 'student.PRIMARY'
+mysql> -- 删除主键约束
+
+mysql> ALTER TABLE student DROP PRIMARY KEY
+    -> ;
+Query OK, 1 row affected (0.02 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE student(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> age INT UNIQUE AUTO_INCREMENT
+    -> );
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> DROP TBALE student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TBALE student' at line 1
+mysql> DROP TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE student(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> age INT UNIQUE AUTO_INCREMENT
+    -> );
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key mysql> CREATE TABLE student(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> name VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO student(name) VALUES('张三');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student(name) VALUES('张三');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
+|  2 | 张三 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> USE MYSQL
+Database changed
+mysql> show tables;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+37 rows in set (0.00 sec)
+
+
+mysql> use scott;
+Database changed
+mysql> select id, name from student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
+|  2 | 张三 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select id AS '编号', name AS '姓名' from student;
++------+------+
+| 编号 | 姓名 |
++------+------+
+|    1 | 张三 |
+|    2 | 张三 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select id '编号', name '姓名' from student;
++------+------+
+| 编号 | 姓名 |
++------+------+
+|    1 | 张三 |
+|    2 | 张三 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select id '编号', name '姓名' from student AS s;
++------+------+
+| 编号 | 姓名 |
++------+------+
+|    1 | 张三 |
+|    2 | 张三 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select id '编号', name '姓名' from student s;
++------+------+
+| 编号 | 姓名 |
++------+------+
+|    1 | 张三 |
+|    2 | 张三 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select id '编号', name '姓名' from student ;
++------+------+
+| 编号 | 姓名 |
++------+------+
+|    1 | 张三 |
+|    2 | 张三 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> -- 设置自增步长
+mysql> SET AUTO_INCREMENT_INCREMENT = 3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO student(name) VALUES('张三');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
+|  2 | 张三 |
+|  4 | 张三 |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO student(name) VALUES('张三');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name from student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
+|  2 | 张三 |
+|  4 | 张三 |
+|  7 | 张三 |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> -- 添加 age 列，唯一（单纯为了练习）
+mysql> ALTER TABLE student ADD age INT UNIQUE;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table student;
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table
+
+                                        |
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| student | CREATE TABLE `student` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `age` (`age`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student(name, age) VALUES('张三', 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name from student;
++----+------+
+| id | name |
++----+------+
+|  1 | 张三 |
+|  2 | 张三 |
+|  4 | 张三 |
+|  7 | 张三 |
+| 10 | 张三 |
++----+------+
+5 rows in set (0.00 sec)
+
+mysql> select id, name, age from student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 | NULL |
+|  2 | 张三 | NULL |
+|  4 | 张三 | NULL |
+|  7 | 张三 | NULL |
+| 10 | 张三 |    3 |
++----+------+------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO student(name, age) VALUES('张三', 3);
+ERROR 1062 (23000): Duplicate entry '3' for key 'student.age'
+mysql> INSERT INTO student(name, age) VALUES('张三', 4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name, age from student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 | NULL |
+|  2 | 张三 | NULL |
+|  4 | 张三 | NULL |
+|  7 | 张三 | NULL |
+| 10 | 张三 |    3 |
+| 16 | 张三 |    4 |
++----+------+------+
+6 rows in set (0.00 sec)
+
+mysql> -- 删除所有数据 delete
+mysql> DELETE FROM student;
+Query OK, 6 rows affected (0.01 sec)
+
+mysql> select id, name, age from student;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO student(name, age) VALUES('张三', 4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name, age from student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+| 19 | 张三 |    4 |
++----+------+------+
+1 row in set (0.00 sec)
+
+mysql> -- TRUNCATE
+mysql> TRUNCATE TABLE student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO student(name, age) VALUES('张三', 4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name, age from student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 |    4 |
++----+------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO student(name, age) VALUES('张三', 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select id, name, age from student;
++----+------+------+
+| id | name | age  |
++----+------+------+
+|  1 | 张三 |    4 |
+|  4 | 张三 |    5 |
++----+------+------+
+2 rows in set (0.00 sec)
+
+mysql>
