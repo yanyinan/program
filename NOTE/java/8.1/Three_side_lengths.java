@@ -18,7 +18,7 @@ public class Three_side_lengths {
 		int max = (x > y) ? x : y;
 		max = (max > z) ? max : z;
 		System.out.printf("%d,%d,%d", x, y, z); 
-		boolean to = Math.pow(x, 2) + Math.pow(y, 2) == Math.pow(z, 2)|| Math.pow(z, 2) + Math.pow(y, 2) == Math.pow(x, 2)||Math.pow(x, 2) + Math.pow(z, 2) == Math.pow(y, 2) ? true : false;
+		boolean to = x + y == z|| z + y) == x||x + z == y ? true : false;
 		System.out.println(to);
     }
 }
