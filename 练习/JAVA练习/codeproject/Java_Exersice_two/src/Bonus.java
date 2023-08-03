@@ -24,6 +24,13 @@ public class Bonus {
         } else {
             wages = wages + wages * 0.15;
         }
+//        if (year > 0) {
+//            switch (year) {
+//                case 0, 1, 2, 3, 4, 5 -> wages = wages + wages * 0.05;
+//                case 6, 7, 8, 9, 10 -> wages = wages + wages * 0.1;
+//                default -> wages = wages + wages * 0.15;
+//            }
+//        }
         System.out.println("工资为" + wages);
     }
 }
