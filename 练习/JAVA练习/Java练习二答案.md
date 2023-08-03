@@ -348,7 +348,7 @@ public class Constellation {
 
  编写一个程序，根据员工的工龄来计算年终奖金。
 
-> 奖金计算规则如下： 工龄小于等于5年，奖金为工资的5% 工龄大于5年且小于等于10年，奖金为工资的10% 工龄大于10年，奖金为工资的15% (工资和工龄输入) 流程图 画出if分支还有switch分支的流程
+> 奖金计算规则如下： 工龄小于等于5年，奖金为工资的5% 工龄大于5年且小于等于10年，奖金为工资的10% 工龄大于10年，奖金为工资的15% (工资和工龄输入) 
 
 ```java
 import java.util.Scanner;
@@ -377,9 +377,21 @@ public class Bonus {
         } else {
             wages = wages + wages * 0.15;
         }
+//        if (year > 0) {
+//            switch (year) {
+//                case 0, 1, 2, 3, 4, 5 -> wages = wages + wages * 0.05;
+//                case 6, 7, 8, 9, 10 -> wages = wages + wages * 0.1;
+//                default -> wages = wages + wages * 0.15;
+//            }
+//        }
         System.out.println("工资为" + wages);
     }
 }
 
 ```
 
+## 流程图 
+
+画出if分支还有switch分支的流程
+
+![流程控制](%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6.png)

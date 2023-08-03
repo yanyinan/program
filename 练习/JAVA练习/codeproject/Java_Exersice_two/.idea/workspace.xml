@@ -42,7 +42,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Bonus">
+  <component name="RunManager" selected="Application.Number_of_days_in_the_month">
     <configuration name="Bonus" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Bonus" />
       <module name="Java_Exersice_two" />
@@ -64,6 +64,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Number_of_days_in_the_month" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Number_of_days_in_the_month" />
+      <module name="Java_Exersice_two" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Season" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Season" />
       <module name="Java_Exersice_two" />
@@ -71,20 +78,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unit_conversion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Unit_conversion" />
-      <module name="Java_Exersice_two" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Number_of_days_in_the_month" />
         <item itemvalue="Application.Bonus" />
         <item itemvalue="Application.Constellation" />
         <item itemvalue="Application.Season" />
         <item itemvalue="Application.Calculator" />
-        <item itemvalue="Application.Unit_conversion" />
       </list>
     </recent_temporary>
   </component>
@@ -98,6 +98,7 @@
       <updated>1690975922918</updated>
       <workItem from="1690975923904" duration="10687000" />
       <workItem from="1691021850281" duration="379000" />
+      <workItem from="1691024489035" duration="1655000" />
     </task>
     <servers />
   </component>
