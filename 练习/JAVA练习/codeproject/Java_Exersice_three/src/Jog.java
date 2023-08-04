@@ -16,7 +16,7 @@ public class Jog {
         int sum = 0;
         for (int i = 1; i <= n; i++) {
             if (i % 7 ==0){
-                sum = sum +7;
+                sum = sum + i / 7 +6;
             }else {
                 sum = sum + i % 7 + i / 7;
             }
