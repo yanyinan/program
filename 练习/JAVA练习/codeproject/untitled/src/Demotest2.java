@@ -1,7 +1,7 @@
 /**
- * @title:
+ * @title:空心三角形
  * @author:nanzhou
- * @date:
+ * @date:2023.08.04
  */
 public class Demotest2 {
     public static void main(String[] args) {
