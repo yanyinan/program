@@ -15,7 +15,12 @@ public class Jog {
         int n = input.nextInt();
         int sum = 0;
         for (int i = 1; i <= n; i++) {
-            sum = sum + i % 7 + i / 7;
+            if (i % 7 ==0){
+                sum = sum +7;
+            }else {
+                sum = sum + i % 7 + i / 7;
+            }
+
         }
         System.out.println(n + "天一共跑了" + sum * 100);
     }
