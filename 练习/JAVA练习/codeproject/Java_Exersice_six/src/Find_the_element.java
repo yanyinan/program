@@ -21,13 +21,14 @@ public class Find_the_element {
         int[] arr = {3, 2, 1, 4, 5};
         System.out.println(Arrays.toString(arr));
         Scanner input = new Scanner(System.in);
-        int flag = -1,x =input.nextInt();
+        int flag = -1, x = input.nextInt();
         for (int i = 0;i < arr.length;i++){
             if (x == arr[i]){
                 flag = i;
                 break;
             }
         }
+
         System.out.println(flag);
     }
 }

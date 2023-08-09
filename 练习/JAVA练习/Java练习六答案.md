@@ -79,7 +79,11 @@ public class Array_deduplication {
                 arr2[index++] = arr[i];
             }
         }
-        System.out.println(Arrays.toString(arr2));
+        int[] newarr = new int[index];
+        for (int i =0;i <newarr.length;i++){
+            newarr[i] = arr2[i];
+        }
+        System.out.println(Arrays.toString(newarr));
     }
 }
 ```

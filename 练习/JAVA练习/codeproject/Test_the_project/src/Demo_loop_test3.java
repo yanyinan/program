@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class Demo_loop_test3 {
     public static void main(String[] args) {
-        int[] arr = {5, 1, 2, 4, 9, 3};
+        int[] arr = {5, 1, 2, 4, 1,9, 3};
         for (int i = 1; i < arr.length; i++) {
             int temp = arr[i];
             int j = i - 1;
