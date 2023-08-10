@@ -41,7 +41,7 @@ public class Flip_the_array {
                 {'正', '梳', '妆', '。'},
                 {'相', '顾', '无', '言', ','},
                 {'惟', '有', '泪', '千', '行', '。'},
-                {'料', '得', '年', '年', '肠', '断', '处','，'},
+                {'料', '得', '年', '年', '肠', '断', '处', '，'},
                 {'明', '月', '夜', '，'},
                 {'短', '松', '冈', '。'}
         };
@@ -55,8 +55,6 @@ public class Flip_the_array {
         System.out.println("旋转90");
         int maxLength = 0;
         int maxIndex = -1;
-        int minLength = Integer.MAX_VALUE;
-        int minIndex = -1;
         for (int i = 0; i < chunxiao.length; i++) {
             int length = 0;
             for (int j = 0; j < chunxiao[i].length; j++) {
@@ -65,23 +63,20 @@ public class Flip_the_array {
             if (length > maxLength) {
                 maxLength = length;
                 maxIndex = i;
-            } else if (length < minLength) {
-                minLength = length;
-                minIndex = i;
             }
         }
-        int x = chunxiao[maxIndex].length - chunxiao[minIndex].length;
-            for (int i = 0; i < chunxiao[chunxiao.length - 1].length + x; i++) {
-                for (int j = chunxiao.length - 1; j >= 0; j--) {
-                    if (i >= chunxiao[j].length) {
-                        System.out.print("\t");
-                    } else
-                        System.out.print(chunxiao[j][i] + "\t");
-                }
-                System.out.println();
+        for (int i = 0; i < chunxiao[maxIndex].length; i++) {
+            // 行，每元素(一维数组)的元素的下标
+            for (int j = chunxiao.length - 1; j >= 0; j--) {
+                if (i >= chunxiao[j].length) {
+                    System.out.print("\t");
+                } else
+                    System.out.print(chunxiao[j][i] + "\t");
             }
+            System.out.println();
+
         }
 
+    }
 }
-
 

@@ -111,8 +111,6 @@ public class Flip_the_array {
         System.out.println("旋转90");
         int maxLength = 0;
         int maxIndex = -1;
-        int minLength = Integer.MAX_VALUE;
-        int minIndex = -1;
         for (int i = 0; i < chunxiao.length; i++) {
             int length = 0;
             for (int j = 0; j < chunxiao[i].length; j++) {
@@ -121,13 +119,9 @@ public class Flip_the_array {
             if (length > maxLength) {
                 maxLength = length;
                 maxIndex = i;
-            } else if (length < minLength) {
-                minLength = length;
-                minIndex = i;
             }
         }
-        int x = chunxiao[maxIndex].length - chunxiao[minIndex].length;
-            for (int i = 0; i < chunxiao[chunxiao.length - 1].length + x; i++) {
+            for (int i = 0; i < chunxiao[maxIndex].length ; i++) {
                 for (int j = chunxiao.length - 1; j >= 0; j--) {
                     if (i >= chunxiao[j].length) {
                         System.out.print("\t");
@@ -139,6 +133,9 @@ public class Flip_the_array {
         }
 
 }
+
+
+
 ```
 
 

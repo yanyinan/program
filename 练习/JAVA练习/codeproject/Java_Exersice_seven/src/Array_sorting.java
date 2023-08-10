@@ -71,9 +71,16 @@ public class Array_sorting {
             int[] temp = scores[i];
             scores[i] = scores[max];
             scores[max] = temp;
+            String temp1 = names[i];
+            names[i] = names[max];
+            names[max] = temp1;
         }
-        for (int[] i: scores) {
-            System.out.println(Arrays.toString(i));
+        for (int i = 0; i < names.length; i++) {
+            System.out.print(names[i] + ": ");
+            for (int j = 0; j < scores[i].length; j++) {
+                System.out.print(courses[j] + "=" + scores[i][j] + "\t");
+            }
+            System.out.println();
         }
 
     }
