@@ -251,13 +251,21 @@ public class Flip_the_array {
                int[] temp = scores[i];
                scores[i] = scores[max];
                scores[max] = temp;
+               String temp1 = names[i];
+               names[i] = names[max];
+               names[max] = temp1;
            }
-           for (int[] i: scores) {
-               System.out.println(Arrays.toString(i));
+           for (int i = 0; i < names.length; i++) {
+               System.out.print(names[i] + ": ");
+               for (int j = 0; j < scores[i].length; j++) {
+                   System.out.print(courses[j] + "=" + scores[i][j] + "\t");
+               }
+               System.out.println();
            }
    
        }
    }
+   
    
    ```
 
@@ -477,11 +485,14 @@ int[] nums = {2, 11, 33, 44, 55, 66, 277}
        public static void main(String[] args) {
            int[] nums = {2, 11, 33, 44, 55, 66, 277};
    //        2. `System `类中的 `arraycopy `方法实现
+           System.arraycopy(nums,0,newNums,0,2);
+   		System.arraycopy(nums,3,newNums,2,4);
+   		// 3. ` Arrays.stream(nums) `方法实现
            int[] newnums = Arrays.stream(nums).filter(x -> x != 33).toArray();
            System.out.println(Arrays.toString(newnums));
        }
    }
    
    ```
-
+   
    
