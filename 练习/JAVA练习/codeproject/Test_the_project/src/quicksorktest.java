@@ -1,12 +1,12 @@
 import java.util.Arrays;
 
 /**
- * @title:
+ * @title:quicksorktest
  * @author:nanzhou
  * @date:
  */
-public class QuickSort {
-    public static void quickSort(int[] arr,int low,int high){
+public class quicksorktest {
+    public static void quicksorktest(int[] arr, int low, int high) {
         int i,j,temp,t;
         if(low>high){
             return;
@@ -36,16 +36,15 @@ public class QuickSort {
         //最后将基准为与i和j相等位置的数字交换
         arr[low] = arr[i];
         arr[i] = temp;
-        //递归调用左半数组
-        quickSort(arr, low, j-1);
-//        //递归调用右半数组
-        quickSort(arr, j+1, high);
+        quicksorktest(arr, low, j-1);
+        //递归调用右半数组
+        quicksorktest(arr, j+1, high);
+
     }
 
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int[] arr = {10,7,2,4,7,62,3,4,2,1,8,9,19};
-        quickSort(arr, 0, arr.length-1);
-        System.out.println(Arrays.toString(arr));
+        quicksorktest(arr, 0, arr.length-1);
+        System.out.println(Arrays.toString(arr));1  
     }
 }
