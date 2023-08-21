@@ -1,6 +1,5 @@
 package System;
 
-import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -21,8 +20,8 @@ public class MovieTheater {
     {
         User user = new User("admin", "12345", "admin", "管理员");
         addUser(user);
-        User user2 = new User("用户", "12345", "admin", "用户");
-        addUser(user);
+        User user2 = new User("用户", "54321", "admin", "用户");
+        addUser(user2);
     }
 
     {
@@ -288,6 +287,7 @@ public class MovieTheater {
     private static void exit() {
         print("欢迎下次光临");
         System.exit(0);
+//        movieTheater.start();
     }
 
     //输出
