@@ -11,9 +11,12 @@ public class LongestSubstringWithoutRepeating {
             char currentChar = s.charAt(right);
             // 如果字符已经在窗口内，更新左边界
             if (charIndex[currentChar] > 0) {
+                System.out.println(charIndex[currentChar]);
+                System.out.println("left" +left);
                 left = Math.max(left, charIndex[currentChar]);
             }
             // 计算当前子串长度并更新最大长度
+            System.out.println("maz"+maxLength);
             maxLength = Math.max(maxLength, right - left + 1);
             // 更新字符的出现位置
             charIndex[currentChar] = right + 1;
