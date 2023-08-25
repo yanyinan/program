@@ -54,6 +54,6 @@ public class publicprefix {
         String[] test3 = {"apple", "app", "apricot"};
         String[] test4 = {"prefix", "pre", "preserve"};
         String[] test5 = {"abc", "def", "ghi"};
-        System.out.println("\"" + publicprefix.LongestPublicPrefix(test5) + "\"");
+        System.out.println("\"" + publicprefix.LongestPublicPrefix(test4) + "\"");
     }
 }

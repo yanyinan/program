@@ -5,7 +5,6 @@ package Exceltablecolumnnames;
  * @author:nanzhou
  * @date:
  */
-
 /**
  * Excel表列名称
  * 给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。
@@ -49,16 +48,13 @@ public class Excel {
         while (columnNumber > 0) {
             columnNumber--;  // 将列数从基于1的索引转换为基于0的索引
             int remainder = columnNumber % 26;
-            char c = (char) (remainder + 'A');  // 获取对应的字母，A对应0，B对应1，依此类推
+            char c = (char) (remainder + 65);  // 获取对应的字母，A对应0，B对应1，依此类推
             result.insert(0, c);  // 将字母插入到结果字符串的开头
             columnNumber /= 26;  // 除以26，以准备处理下一位
         }
-
         return result.toString();
     }
-
     public static void main(String[] args) {
-
         System.out.println(convertToTitle(728));
     }
 }
