@@ -9,25 +9,32 @@ import java.util.Objects;
 public class QueueAcess extends Queue{
     private static final int DEFAULT_CAPACITY = 10;
     private static Object[] objects = new Object[DEFAULT_CAPACITY];
-    int size = 0;
+    int size;
     /**
      * 将元素插入队尾
      * @param element 要插入的元素
      */
     @Override
     public void enqueue(Object element) {
-        expansion();
+        //判断是否需要扩容
+        if (size + 1 > objects.length) expansion();
+        //插入
         objects[size] = element;
+        //计数
         size ++;
     }
     /**
      * 扩容
      */
     private void expansion() {
-        if (size == objects.length) {
-            int newCapacity = objects.length + objects.length / 2;
-            objects = Arrays.copyOf(objects, newCapacity);
-        }
+        //容量
+        int oldCapacity = objects.length;
+        //新容量
+        int newCapacity = objects.length << 2;
+        //判断容量是否正常增加
+        if (newCapacity < oldCapacity) newCapacity = Integer.MAX_VALUE;
+        //扩容
+        objects = Arrays.copyOf(objects, newCapacity);
     }
 
     /**
@@ -38,8 +45,10 @@ public class QueueAcess extends Queue{
     @Override
     public Object dequeue() {
         if (size == 0) {
+            //判空
             return null;
         } else {
+            //移除返回
             Object obj = objects[0];
             size --;
             System.arraycopy(objects, 1, objects, 0, size);
@@ -74,6 +83,10 @@ public class QueueAcess extends Queue{
         return size;
     }
 
+    /**
+     * 重写toString
+     * @return
+     */
     @Override
     public String toString() {
         Object[] tempArrays = new Object[size];
@@ -81,6 +94,11 @@ public class QueueAcess extends Queue{
         return Arrays.toString(tempArrays);
     }
 
+    /**
+     * 重写equals
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -98,6 +116,10 @@ public class QueueAcess extends Queue{
         return Arrays.equals(this.objects, other.objects);
     }
 
+    /**
+     * 重写hashcode
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(Arrays.hashCode(objects), size);
