@@ -9,16 +9,21 @@ import java.util.Objects;
 public class Stackaccess extends Stack {
     private static final int DEFAULT_CAPACITY = 10;//设置初始数组长度
     private static Object[] objects = new Object[DEFAULT_CAPACITY];
-    int size = 0;
+    int size;
+
     /**
      * 将元素压入栈顶
      * 入栈
+     *
      * @param element 要压入的元素
      */
     @Override
     public void push(Object element) {
-        expansion();
+        //判断是否需要扩容
+        if (size + 1 > objects.length) expansion();
+        //压入
         objects[size] = element;
+        //计数
         size++;
     }
 
@@ -35,6 +40,7 @@ public class Stackaccess extends Stack {
             //判断是否为空
             return null;
         } else {
+            //弹出
             Object obj = objects[--size];
             objects[size] = null;
             return obj;
@@ -48,7 +54,7 @@ public class Stackaccess extends Stack {
      */
     @Override
     public Object peek() {
-
+        //返回
         return objects[size - 1];
     }
 
@@ -76,16 +82,19 @@ public class Stackaccess extends Stack {
      * 扩容
      */
     private void expansion() {
-        if (size == objects.length) {
-            int newCapacity = objects.length + objects.length / 2;
-            objects = Arrays.copyOf(objects, newCapacity);
-        }
+        //容量
+        int oldCapacity = objects.length;
+        //新容量
+        int newCapacity = objects.length << 2;
+        //判断容量是否正常增加
+        if (newCapacity < oldCapacity) newCapacity = Integer.MAX_VALUE;
+        //扩容
+        objects = Arrays.copyOf(objects, newCapacity);
     }
 
     /**
      * 重写toString方法
      */
-
     @Override
     public String toString() {
         Object[] tempArrays = new Object[size];
