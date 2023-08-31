@@ -158,7 +158,7 @@ public class LinkList implements List {
         Node point = first;
         for (int i = 0; i < size; i++) {
             if (i == index) {
-                Node tempPoint = (Node) element;
+                Node tempPoint = new Node(element,null);
                 tempPoint.next = point.next.next;
                 point.next = tempPoint;
                 return point.value;
