@@ -33,11 +33,33 @@ public class test {
         linked.add("b");
         linked.add("c");
         linked.add("d");
-        System.out.println(linked.size());
-        linked.remove("a");
-        System.out.println(linked.size());
-        System.out.println(linked.get(0));
-        System.out.println(linked.subList(0,2));
+//        System.out.println(linked.size());
+//        System.out.println(linked.remove(1));
+//        Object[] o = linked.toArray();
+//        for (Object element : o) {
+//            System.out.println(element);
+//        }
+//        System.out.println("print");
+//        linked.clear();
+//        Object[] o1 = linked.toArray();
+//        for (Object element : o1) {
+//            System.out.println(element);
+//        }
+//        linked.set(1,"ad");
+//        Object[] o1 = linked.toArray();
+//        for (Object element : o1) {
+//            System.out.println(element);
+//        }
+//        System.out.println(linked.get(1));
+//        System.out.println(linked.indexOf("a"));
+
+        Object[] o1 = linked.subList(1,2).toArray();
+        for (Object element : o1) {
+            System.out.println(element);
+        }
+//        System.out.println(linked.size());
+//        System.out.println(linked.get(1));
+//        System.out.println(linked.subList(0,2));
 
     }
 }

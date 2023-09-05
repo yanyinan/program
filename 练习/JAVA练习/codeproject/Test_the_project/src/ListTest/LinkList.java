@@ -1,5 +1,7 @@
 package ListTest;
 
+import org.w3c.dom.Node;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -52,9 +54,20 @@ public class LinkList implements List {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] objects = new Object[size]; // 创建一个Object类型的数组
+        Node c = first; // 从链表的头部开始遍历
+        int index = 0; // 数组索引
+        while (c != null) {
+            objects[index++] = c.value; // 将当前节点的值赋给数组中相应位置
+            c = c.next; // 移动到下一个节点
+        }
+        return objects; // 返回填充好的数组
     }
 
     /**
@@ -73,6 +86,7 @@ public class LinkList implements List {
             while (c.next != null) {//判断为空的 next
                 c = c.next;
             }
+            c.next = current;
             c.next = current;
         }
         size++;//计数加1
@@ -136,13 +150,10 @@ public class LinkList implements List {
     public Object get(int index) {
         if (!legalIndex(index)) return null;
         Node point = first;
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                return point.value;
-            }
+        for (int i = 0; i < index; i++) {
             point = point.next;
         }
-        return null;
+        return point.value;
     }
 
     /**
@@ -150,22 +161,18 @@ public class LinkList implements List {
      *
      * @param index   index of the element to replace
      * @param element element to be stored at the specified position
-     * @return
      */
     @Override
     public Object set(int index, Object element) {
         if (!legalIndex(index)) return null;
-        Node point = first;
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                Node tempPoint = new Node(element,null);
-                tempPoint.next = point.next.next;
-                point.next = tempPoint;
-                return point.value;
-            }
-            point = point.next;
+        Node c = first;
+        // 找到 index 位的节点  0 不需要 next   1 进行 .next
+        for (int i = 0; i < index; i++) {
+            c = c.next;
         }
-        return null;
+        Object old = c.value; // 旧值
+        c.value = element;
+        return old;
     }
 
     /**
@@ -176,16 +183,20 @@ public class LinkList implements List {
      */
     @Override
     public void add(int index, Object element) {
-        if (!legalIndex(index)) ;
-        else {
-            Node point = first;
-            for (int i = 0; i < size; i++) {
-                if (i == index) {
-                    Node tempPoint = (Node) element;
-                    tempPoint.next = point.next;
-                    point.next = tempPoint;
+        if (index < 0 || index > size + 1) {
+        } else {
+            if (index == 0) {
+                first = new Node(element, first);
+            } else {
+                Node pre = first;
+                Node c = first.next;
+                // 原来这个位置的元素. 找到 index 位的 Node 节点
+                for (int i = 1; i < index; i++) {
+                    pre = c;
+                    c = c.next;
                 }
-                point = point.next;
+                // 插入值
+                pre.next = new Node(element, c);
             }
             size++;
         }
@@ -199,18 +210,22 @@ public class LinkList implements List {
      */
     @Override
     public Object remove(int index) {
-        if (legalIndex(index)) return null;
+        if (!legalIndex(index)) return null;
         Node point = first;
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                Object temp = point.value;
-                point.next = point.next.next;
-                return temp;
-            }
+        if (index == 0) {
             point = point.next;
+            size--;
+            return point.value;
+        } else {
+            for (int i = 1; i < index - 1; i++) {
+                point = point.next;
+            }
+            Node temp = point.next;
+            point.next = point.next.next;
+            temp.next = null;
+            size--;
+            return temp.value;
         }
-        size--;
-        return null;
     }
 
     /**
@@ -235,7 +250,7 @@ public class LinkList implements List {
      * 找到指定元素的位置（从后往前走）
      *
      * @param o element to search for
-     * @return
+     * @return flag
      */
     @Override
     public int lastIndexOf(Object o) {
@@ -261,10 +276,11 @@ public class LinkList implements List {
     }
 
     /**
-     /**
+     * /**
      * 截取给定范围的元素
+     *
      * @param fromIndex low endpoint (inclusive) of the subList （起始）
-     * @param toIndex high endpoint (exclusive) of the subList （结尾）
+     * @param toIndex   high endpoint (exclusive) of the subList （结尾）
      * @return 下标合法，返回给定范围元素 不合法返回 null
      */
     @Override
@@ -274,7 +290,7 @@ public class LinkList implements List {
         LinkList linkTemp = new LinkList();
         for (int i = 0; i <= toIndex; i++) {
             if (i >= fromIndex) {
-              linkTemp.add(point.value);
+                linkTemp.add(point.value);
             }
             point = point.next;
         }
@@ -296,33 +312,43 @@ public class LinkList implements List {
         return false;
     }
 
+    /**
+     *
+     * @param a the array into which the elements of this list are to
+     *          be stored, if it is big enough; otherwise, a new array of the
+     *          same runtime type is allocated for this purpose.
+     * @return 返回数组
+     */
     @Override
     public Object[] toArray(Object[] a) {
-        return new Object[0];
+
+        return null;
     }
 
     /**
      * 下标是否合法
+     *
      * @param index
      * @return
      */
-    private boolean legalIndex(int index){
+    private boolean legalIndex(int index) {
         if (index < 0 || index > size - 1) return false;
         else return true;
     }
 
     /**
      * 重写 toString
+     *
      * @return
      */
     @Override
-    public String toString(){
-        if (first == null){
+    public String toString() {
+        if (first == null) {
             return "Linked[]";
         } else {
             StringBuilder sb = new StringBuilder("Linked[");
             Node c = first;
-            while (c.next != null){
+            while (c.next != null) {
                 sb.append(c.value); // 当前节点的值
                 sb.append(", ");
                 c = c.next; // 指向下一个元素
@@ -334,6 +360,7 @@ public class LinkList implements List {
         }
 
     }
+
     /**
      * 链表中的 节点对象
      */
@@ -352,30 +379,40 @@ public class LinkList implements List {
             this.value = value;
             this.next = next;
         }
+
         /**
          * 判断 node 节点是否一样
-         *  node 的值是否一样
+         * node 的值是否一样
+         *
          * @param obj
          * @return
          */
         @Override
-        public boolean equals(Object obj){
-            if (obj == null){
+        public boolean equals(Object obj) {
+            if (obj == null) {
                 return false;
             }
 
-            if (obj == this){
+            if (obj == this) {
                 return true;
             }
 
-            if (obj instanceof Node node){
-                if (this.value == null){
+            if (obj instanceof Node node) {
+                if (this.value == null) {
                     return node.value == null;
                 } else {
                     return value.equals(node.value);
                 }
             }
             return false;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value=" + value +
+                    ", next=" + next +
+                    '}';
         }
     }
 }
