@@ -1,9 +1,6 @@
-package StatisticalCharacters;
+package Count;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @title:
@@ -12,11 +9,11 @@ import java.util.List;
  */
 
 /**
- * ## 统计字符出现的次数
+ * ## 统计数量
  *
- * 使用集合统计一段文本中各个字符出现的次数。
+ * 输入一个字符串，统计字符串中每个字符出现的次数并输出
  */
-public class Statistical {
+public class Count {
     public static void main(String[] args) {
         // 初始化一个字符串
 //        String str = "Hello, World!";
@@ -28,23 +25,21 @@ public class Statistical {
                 " Java collections provide methods to manipulate elements in the collection, such as " +
                 "adding, removing, finding, and sorting. The implementation classes of collections (such as" +
                 " ArrayList, HashSet, and LinkedHashMap) also provide rich methods to manipulate data.";
-        // 将字符串转换为字符ArrayList
-        List<Character> charList = new ArrayList<>();
+        // 将字符串转换为HashMap<Character,Integer>
+        HashMap<Character,Integer> hashMap = new HashMap<>();
         for (char c : str.toCharArray()) {
-            charList.add(c);
+            hashMap.put(c,hashMap.getOrDefault(c,0)+1);
+//            if (hashMap.containsKey(c)){
+//                hashMap.put(c,hashMap.get(c)+1);
+//            }else hashMap.put(c,1);
         }
-//        // 输出转换后的ArrayList
-//        System.out.println(charList);
-        HashSet<Character> hashSet = new HashSet<>(charList);
-        for (Character i:hashSet){
-            Iterator<Character> iterator = charList.iterator();
-            int count = 0;
-            while (iterator.hasNext()){
-                Character character = iterator.next();
-                if (i == character){count++;}
-            }
-            System.out.println(i + "的个数为" + count);
-        }
-
+//        System.out.println(hashMap);
+        Set<Character> set = hashMap.keySet();
+        set.forEach(character -> System.out.println("字符 " + character + " 有 " + hashMap.get(character)));
+//        Iterator<Character> setIterator = set.iterator();
+//        while (setIterator.hasNext()){
+//            char next = setIterator.next();
+//            System.out.println("字符 " + next + " 有 " + hashMap.get(next));
+//        }
     }
 }

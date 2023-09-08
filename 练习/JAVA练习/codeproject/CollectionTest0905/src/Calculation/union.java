@@ -9,9 +9,9 @@ import java.util.HashSet;
  */
 
 /**
- * ## 交集计算
+ * ## 并集计算
  *
- * 有两个List集合, 计算两个集合的交集元素。
+ * 有两个List集合, 计算两个集合的并集元素。
  */
 public class union {
     public static void main(String[] args) {
@@ -23,9 +23,8 @@ public class union {
         set2.add("b");
         set2.add("c");
         set2.add("d");
-        HashSet result = new HashSet<>();
-        result.clear();
-        result.addAll(set1);
+        HashSet result = new HashSet<>(set1);
+//        result.addAll(set1);
         result.addAll(set2);
         System.out.println(result);
     }
