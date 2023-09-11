@@ -61,26 +61,38 @@ public class Province {
         provinces.put("新疆", "新");
         provinces.put("香港", "港");
         provinces.put("澳门", "澳");
-        //正则
-        String regex = "^江";
-        Pattern p = Pattern.compile(regex);
-//         keySet
-        Set<String> strings = provinces.keySet();
-        Iterator<String> iterator = strings.iterator();
-        // 打印出所有的省份和简称
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            Matcher matcher = p.matcher(key);
-            if (matcher.find()) {
-                iterator.remove();
-//                System.out.println("out");
-            } else {
-                System.out.println("省份：" + key + "，简称：" + provinces.get(key));
-            }
-//            System.out.println(key + " = " + provinces.get(key));
-        }
+//        String regex = "^江";
+//        Pattern p = Pattern.compile(regex);
+////         keySet
+//        Set<String> strings = provinces.keySet();
+//        Iterator<String> iterator = strings.iterator();
+//        // 打印出所有的省份和简称
+//        while (iterator.hasNext()) {
+//            String key = iterator.next();
+//            Matcher matcher = p.matcher(key);
+//            if (matcher.find()) {
+//                iterator.remove();
+////                System.out.println("out");
+//            } else {
+//                System.out.println("省份：" + key + "，简称：" + provinces.get(key));
+//            }
+////            System.out.println(key + " = " + provinces.get(key));
+//        }
+//        keySet
+        Set<Map.Entry<String, String>> strings = provinces.entrySet();
+        strings.removeIf(stringStringEntry -> stringStringEntry.getKey().contains("江"));
+//        System.out.println(provinces);
+        strings.forEach(stringStringEntry -> System.out.println("省份：" + stringStringEntry.getKey() + "，简称：" + stringStringEntry.getValue()));
+//        provinces.forEach((key,value)->System.out.println("省份：" + key + "，简称：" + value));
+//        for (Map.Entry<String,String> e : strings){
+//            System.out.println("省份：" + e.getKey() + "，简称：" + e.getValue());
+//        }
+
     }
 }
+
+
+
 ```
 
 ## 统计数量
@@ -118,17 +130,19 @@ public class Count {
         // 将字符串转换为HashMap<Character,Integer>
         HashMap<Character,Integer> hashMap = new HashMap<>();
         for (char c : str.toCharArray()) {
-            if (hashMap.put(c,1) !=null){
-                hashMap.put(c,hashMap.get(c)+1);
-            }
+            hashMap.put(c,hashMap.getOrDefault(c,0)+1);
+//            if (hashMap.containsKey(c)){
+//                hashMap.put(c,hashMap.get(c)+1);
+//            }else hashMap.put(c,1);
         }
 //        System.out.println(hashMap);
         Set<Character> set = hashMap.keySet();
-        Iterator<Character> setIterator = set.iterator();
-        while (setIterator.hasNext()){
-            char next = setIterator.next();
-            System.out.println("字符 " + next + " 有 " + hashMap.get(next));
-        }
+        set.forEach(character -> System.out.println("字符 " + character + " 有 " + hashMap.get(character)));
+//        Iterator<Character> setIterator = set.iterator();
+//        while (setIterator.hasNext()){
+//            char next = setIterator.next();
+//            System.out.println("字符 " + next + " 有 " + hashMap.get(next));
+//        }
     }
 }
 
@@ -188,8 +202,8 @@ public class Count {
 ```java
 package Morse;
 
+
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -286,16 +300,17 @@ public class Morse {
      * @return 长度相同个数
      */
     private static int MorseMach(String[] words) {
-        HashSet<String> hashSet = new HashSet<>();
+        HashMap<String,Integer> map = new HashMap<>();
         for (int i = 0; i < words.length; i++) {
             char[] chars =  words[i].toCharArray();
             String strTemp = "";
             for(char ch :chars){
                 strTemp += morseCodeMap.get(ch);
             }
-            hashSet.add(strTemp);
+            map.put(strTemp,map.getOrDefault(strTemp,0)+1);
         }
-        return hashSet.size();
+//        System.out.println(map);
+        return map.size();
     }
     public static void main(String[] args) {
         String[] words = {"gin", "zen", "gig", "msg"};
