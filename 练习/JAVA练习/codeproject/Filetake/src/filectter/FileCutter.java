@@ -16,24 +16,67 @@ public class FileCutter {
      * @return 返回切割后的文件数目
      */
     public int split(final File original, final long size, final File directory) {
+        //参数校验
+        if (original == null){
+            throw new NullPointerException("参数为空");
+        }
+        if (!original.isFile()){
+            throw new NullPointerException("未查询到指定文件");
+        }
+        if (directory == null){
+            throw new NullPointerException("目录参数为空");
+        }
+        //校验目录是否存在，不存在创建
+        if (!directory.exists()){
+            directory.mkdirs();
+        }
         // 表示拆分后文件个数的变量
         int n = 0;
-        try {
-            byte[] bytes = new byte[(int) size];
-            FileInputStream file = new FileInputStream(original);
-            FileOutputStream fileos = null;
-            int temp ;
-            while ((temp = file.read(bytes))>0){
-                String tempname = directory+"/"+n+".mp4";
-                new File(tempname).createNewFile();
-                fileos = new FileOutputStream(tempname);
-                fileos.write(bytes,0,temp);
-                n++;
+        try (FileInputStream file = new FileInputStream(original)){
+            //byte[]中最多存储 Integer.MAX_VALUE - 8
+            int readSize;
+
+            if (size <= Integer.MAX_VALUE - 8){
+
+                //单文件大小一个数组能读取到范围
+                byte[] bytes = new byte[(int) size];
+
+                while (file.available() != 0){
+                    //自定义命名切割文件
+//                    String template = n+".mp4";
+//                    File out = new File(directory,template);
+
+                    //时间命名切割文件
+                    File out = new File(directory,System.currentTimeMillis()+"_file_cuter");
+                    FileOutputStream fis = new FileOutputStream(out);
+
+                    readSize  = file.read(bytes);
+                    fis.write(bytes,0, readSize);
+                    n++;
+
+                    fis.close();
+                }
+            }else {
+
+                byte[] bytes = new byte[Integer.MAX_VALUE - 8];
+
+                //一次读取不能完整读取一个文件
+                while (size <= Integer.MAX_VALUE - 8 && file.available() != 0){
+                    //时间命名切割文件
+                    File out = new File(directory,System.currentTimeMillis()+"_file_cuter");
+                    FileOutputStream fis = new FileOutputStream(out);
+
+                    while (file.available() != 0){
+
+                        readSize = file.read(bytes);
+                        fis.write(bytes,0,readSize);
+                        n++;
+
+                    }
+                    fis.close();
+                }
             }
-            file.close();
-            fileos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -46,9 +89,10 @@ public class FileCutter {
         // 被拆分的文件
         File f = new File("D:\\小练习\\test\\coverr-a-man-makes-a-ponytail-4655-1080p.mp4");
         // 表示每个文件体积最大为1MB
-        long size = 1024 * 1024 * 1;
+        int mb = 1;
+        long size = 1024 * 1024 * mb;
         // 拆分后的小文件的存放目录
         File dir = new File("D:\\小练习\\test");
-        fc.split(f, size, dir);
+        System.out.println(fc.split(f, size, dir));
     }
 }

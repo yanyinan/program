@@ -18,17 +18,24 @@ public class FileCombiner {
     public long join(final File dir, final File target) {
         // 声明用于统计合并后的文件体积的变量
         long size = 0;
+        //参数校验 Todo
+
         try {
+            //合并文件
             File[] dirfile = dir.listFiles();
             int n = 0;
-            FileOutputStream fileos = new FileOutputStream(target.getPath());
+            //创建输出流
+            FileOutputStream fileos = new FileOutputStream(target);
 
             long siz = 1024 * 1024 * 1;
+            //遍历文件片段
             for (File file : dirfile) {
+                //通过自定义去限制
                 String tempname = dir + "/" + n + ".mp4";
-
                 System.out.println(file.isFile() && file.getName().equals(n+".mp4"));
+                //一次完全读取 Todo
                 if (file.getName().equals(n+".mp4")) {
+
                     try(FileInputStream fis = new FileInputStream(tempname);) {
                         byte[] bytes = new  byte[(int) siz];
                         int temp ;
@@ -39,6 +46,8 @@ public class FileCombiner {
                     }
 
                 }n++;
+                //一次不能完全读取
+
             }
             fileos.close();
         } catch (FileNotFoundException e) {
