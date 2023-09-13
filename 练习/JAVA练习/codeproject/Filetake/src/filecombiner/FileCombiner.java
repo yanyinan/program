@@ -18,40 +18,66 @@ public class FileCombiner {
     public long join(final File dir, final File target) {
         // 声明用于统计合并后的文件体积的变量
         long size = 0;
-        //参数校验 Todo
-
-        try {
+        //参数校验
+        //参数传递为空判断
+        if (dir == null) {
+            throw new NullPointerException("目录参数为空");
+        }
+        if (target == null) {
+            throw new NullPointerException("传递参数为空");
+        }
+        //文件目录是否存在，不存在创建
+        if (!target.getParentFile().exists()) {
+            target.getParentFile().mkdirs();
+        }
+        //初始化输出流
+        try (FileOutputStream files = new FileOutputStream(target)) {
             //合并文件
-            File[] dirfile = dir.listFiles();
-            int n = 0;
-            //创建输出流
-            FileOutputStream fileos = new FileOutputStream(target);
+            File[] dirfile = dir.listFiles((file, name) -> name.endsWith("_file_cuter"));
 
-            long siz = 1024 * 1024 * 1;
-            //遍历文件片段
-            for (File file : dirfile) {
-                //通过自定义去限制
-                String tempname = dir + "/" + n + ".mp4";
-                System.out.println(file.isFile() && file.getName().equals(n+".mp4"));
-                //一次完全读取 Todo
-                if (file.getName().equals(n+".mp4")) {
+            //判断合并文件是否为空
+            if (dirfile != null) {
+                //遍历文件片段
+                for (File file : dirfile) {
 
-                    try(FileInputStream fis = new FileInputStream(tempname);) {
-                        byte[] bytes = new  byte[(int) siz];
-                        int temp ;
-                        while ((temp = fis.read(bytes))>1){
-                            fileos.write(bytes,0,temp);
+                    if (file.length() <= Integer.MAX_VALUE - 8) {
+                        //一次完全读取
+                        //初始化输入流
+                        FileInputStream fis = new FileInputStream(file);
+                        //读取计数器
+                        int temp;
+                        //初始化bytes
+                        byte[] bytes = new byte[(int) file.length()];
+                        //读取写入
+                        while ((temp = fis.read(bytes)) > 0) {
+                            files.write(bytes, 0, temp);
                         }
+                        //关闭输入流
+                        fis.close();
+                        //大小计数
+                        size += file.length();
+                    } else {
+                        //一次不能完全读取
+                        //输入流定义
+                        FileInputStream fis = new FileInputStream(file);
+                        //读取计数器
+                        int temp;
+                        //初始化bytes
+                        byte[] bytes = new byte[Integer.MAX_VALUE - 8];
+                        //判断读取是否完成
+                        while (fis.available() > 0) {
+                            //读取
+                            temp = fis.read(bytes);
+                            //写入
+                            files.write(bytes, 0, temp);
+                        }
+                        //关闭输入流
+                        fis.close();
+                        //大小计数
                         size += file.length();
                     }
-
-                }n++;
-                //一次不能完全读取
-
+                }
             }
-            fileos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -65,7 +91,7 @@ public class FileCombiner {
         // 文件片段所在的目录
         File dir = new File("D:\\小练习\\test");
         // 合并后的文件存放路径和名
-        File target = new File("D:\\小练习\\test\\cover-a-man-makes-a-ponytail-4655-1080copy.mp4");
+        File target = new File("D:\\小练习\\test\\Alec Benjamin - 你的目光 (The Way You Felt)copy.mp4");
         long n = fc.join(dir, target);
         System.out.println(n);
     }
