@@ -43,12 +43,12 @@
 
 ### 每种方式生成和解析进行阐述
 
-#### 1.使用JSON官方提供的JSON
+#### 1.使用`JSON`官方提供的`JSON`
 
-官方提供的JSON具有通用性，就是解析时有点费事。
+官方提供的`JSON`具有通用性，就是解析时有点费事。
 **maven依赖:**
 
-```java
+```xml
 <dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
@@ -84,11 +84,10 @@
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2020052416105282.png)
 
-
 在字符串输出的时候会发现，输出的字符串与数据存储的顺序可能是不一致的。原因是调用`jsonObject.put()`方法的时候，其底层是一个 `HashMap`，数据被存到了`HashMap` 中。 `HashMap`根据键的哈希码来决定键的位置，所以可能会出现上面的问题。
 
 *2.`javaBean`转`JSON`*
-javaBean：
+**javaBean：**
 
 ```java
 public class User {
@@ -99,31 +98,25 @@ public class User {
 }
 ```
 
-JavaBean TO JSON：
+**JavaBean TO JSON：**
 
-    public static void beanToJsonTest() {
-        User user = new User();
-    
-        user.setName("张三");
-        user.setAge(20);
-        user.setLikes(new String[]{"看电影", "看书"});
-    
-        JSONObject jsonObject = new JSONObject(user);
-        System.out.println(jsonObject.toString());
-    }
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-解析JSON
-首先有两张表，分别是学生表和年级表，年纪和学生是一对多关系，这里我就不展示表了，太简单了。直接上解析代码：（不懂一定要看注释哦！）
+```java
+public static void beanToJsonTest() {
+    User user = new User();
 
+    user.setName("张三");
+    user.setAge(20);
+    user.setLikes(new String[]{"看电影", "看书"});
+
+    JSONObject jsonObject = new JSONObject(user);
+    System.out.println(jsonObject.toString());
+}
+```
+**解析JSON**
+
+首先有两张表，分别是学生表和年级表，年纪和学生是一对多关系
+
+```java
 //JSON字符串
 String json = "{'id':1,'name':'JAVAEE-1703','stus':[{'id':101,'name':'刘一','age':16},{'id':102,'name':'刘二','age':23}]}";
 //将JSON字符串转为JSON对象
@@ -144,77 +137,44 @@ for (Object o : stus) {
 grade.setStus(students) ;   
 //至此一个JSON字符串解析为Java对象
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-2.使用GSON
-依赖
+```
 
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.2</version>
-        </dependency>
-1
-2
-3
-4
-5
-生成JSON对象:
+#### 2.使用`GSON`
 
-    public static void beanToJsonTest() {
-        User user = new User();
-    
-        user.setName("张三");
-        user.setAge(20);
-        user.setLike(new String[]{"看电影", "看书"});
-    
-        /**
-        * 使用GsonBuilder 可以作一些额外处理，比如格式化输出，预处理等
-        * 
-        * GsonBuilder gsonBuilder = new GsonBuilder();
-        * gsonBuilder.setPrettyPrinting();    
-        * Gson gson = gsonBuilder.create();
-        */
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(user));
-    }
+**maven依赖:**
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-解析JSON
+```xml
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.2</version>
+    </dependency>
+```
+**生成JSON对象:**
 
+```java
+public static void beanToJsonTest() {
+    User user = new User();
+
+    user.setName("张三");
+    user.setAge(20);
+    user.setLike(new String[]{"看电影", "看书"});
+
+    /**
+    * 使用GsonBuilder 可以作一些额外处理，比如格式化输出，预处理等
+    * 
+    * GsonBuilder gsonBuilder = new GsonBuilder();
+    * gsonBuilder.setPrettyPrinting();    
+    * Gson gson = gsonBuilder.create();
+    */
+    Gson gson = new Gson();
+    System.out.println(gson.toJson(user));
+}
+```
+
+**解析JSON**
+
+```java
 public static void jsonToBeanTest() {
         String jsonStr = "{\"name\":\"李四\",\"age\":22 , \"like\":[\"看电影\",\"看书\"],\"birth\":\"1996-01-01\"}";
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -224,42 +184,26 @@ public static void jsonToBeanTest() {
         //解析对象：第一个参数：待解析的字符串 第二个参数结果数据类型的Class对象
         User user = gson.fromJson(jsonStr, User.class);
     }
-1
-2
-3
-4
-5
-6
-7
-8
-9
-不用get取值，set赋值了，看起来好爽啊。有没有？
 
- String json2 = "['北京','天津','杭州']";
- //解析数组要求使用Type
- ArrayList<String> list=gson.fromJson(json2, new TypeToken<ArrayList<String>>(){}.getType());
- System.out.println(list);
-1
-2
-3
-4
-3.使用FastJSON
-FastJSON是阿里巴巴的产品，效率最高，深受广大程序员的喜爱，哈哈。但这里有很多东西我这里只写一下上面的老套路，生成和解析。想更多了解的可以去看这个FastJson。超赞的。
-依赖
+```
 
+#### 3.使用`FastJSON`
+
+`FastJSON`是阿里巴巴的产品，效率最高，深受广大程序员的喜爱
+**maven依赖:**
+
+```xml
 <dependency>
     <groupId>com.alibaba</groupId>
     <artifactId>fastjson</artifactId>
     <version>1.2.47</version>
 </dependency>
-1
-2
-3
-4
-5
-生成JSON对象：
-创建JSON 对象非常简单，只需使用 JSONObject（fastJson提供的json对象） 和 JSONArray（fastJson提供json数组对象） 对象即可。
+```
 
+**生成JSON对象：**
+创建`JSON` 对象非常简单，只需使用 `JSONObject`（`fastJson提供的json对象`） 和 `JSONArray`（`fastJson提供json数组对象`） 对象即可。
+
+```java
 @Test
 public void whenGenerateJson_thanGenerationCorrect() throws ParseException {
     JSONArray jsonArray = new JSONArray();
@@ -270,19 +214,29 @@ public void whenGenerateJson_thanGenerationCorrect() throws ParseException {
         jsonObject.put("DATE OF BIRTH", "2016/12/12 12:12:12");
         jsonArray.add(jsonObject);
     }
+    // jsonString --> obj
+	//String[] strings = JSON.parseObject(str, String[].class);
+   // System.out.println(Arrays.toString(strings));
+    // obj --> jsonString
     String jsonOutput = jsonArray.toJSONString();
+}
+    
+```
 
-解析JSON
+**解析JSON**
 
+```java
 @Test
 public void whenJson_thanConvertToObjectCorrect() {
     Person person = new Person(20, "John", "Doe", new Date());
     String jsonObject = JSON.toJSONString(person);
     Person newPerson = JSON.parseObject(jsonObject, Person.class);
+```
 
-JSON 对象与字符串的相互转化
+**JSON 对象与字符串的相互转化**
 最常用的就是这个直接转化了，来吧：
 
+```java
 //从字符串解析JSON对象
 JSONObject obj = JSON.parseObject("{\"runoob\":\"菜鸟教程\"}");
 //从字符串解析JSON数组
@@ -291,20 +245,24 @@ JSONArray arr = JSON.parseArray("[\"菜鸟教程\",\"RUNOOB\"]\n");
 String objStr = JSON.toJSONString(obj);
 //将JSON数组转化为字符串
 String arrStr = JSON.toJSONString(arr);
+```
 
-4.使用JackSon
+#### 4.使用JackSon
+
 jackSon解析JSON，SpringMVC内置的解析器就是这个
-依赖
+**maven依赖:**
 
+```xml
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
     <version>2.9.8</version>
 </dependency>
+```
 
+**生成JSON字符串**
 
-生成JSON字符串
-
+```java
 ArrayList<Student> students = new ArrayList<>();
 for (int i = 0; i < 3; i++) {
      students.add(new Student(100 + i, "二稿" + i, 1000 + i));
@@ -313,9 +271,11 @@ Grade grade = new Grade(22, "语文", students);
 ObjectMapper objectMapper = new ObjectMapper();
 String s = objectMapper.writeValueAsString(grade);
 System.out.println(s);
+```
 
-解析JSON字符串
+**解析JSON字符串**
 
+```java
 // 对象嵌套数组嵌套对象
 String json1 = "{\"id\":1,\"name\":\"JAVAEE-1703\",\"stus\":[{\"id\":101,\"name\":\"刘一\",\"age\":16}]}";
 // 数组
@@ -327,6 +287,67 @@ System.out.println(grade);
 
 List<String> list = mapper.readValue(json2, newTypeReference<List<String>>() {});
 System.out.println(list)
+```
+
+#### 5、hutool-json
+
+**maven依赖:**
+
+```xml
+<dependency>
+    <groupId>cn.hutool</groupId>
+    <artifactId>hutool-all</artifactId>
+    <version>5.0.6</version>
+</dependency>
+```
+
+**字符串 转 JSONObject**
+
+```java
+String jsonStr = "{\"DispositionNotificationListObject\":{\"DispositionNotificationObject\":[{\"PersonObject\":{\"GenderCode\":0,\"EthicCode\":0,\"DeviceID\":\"0\",\"SourceID\":\"022019121117052900016\",\"SubImageList\":{\"SubImageInfoObject\":[{\"Type\":\"11\",\"StoragePath\":\"xxx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134716\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1},{\"Type\":\"11\",\"StoragePath\":\"xxx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134600\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1},{\"Type\":\"14\",\"StoragePath\":\"xxx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134600\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1}]},\"LeftTopY\":141,\"LeftTopX\":104,\"Name\":\"图片姓名测试\",\"InfoKind\":1,\"PersonID\":\"0220191211170529000180100019\",\"RightBtmY\":806,\"RightBtmX\":932,\"IDNumber\":\"\"},\"NotificationID\":\"202002031736\",\"DispositionID\":\"71\",\"TriggerTime\":\"2020-02-03 15:34:15\",\"Title\":\"第三方1400告警信息接收测试\"}]}}";
+JSONObject json = new JSONObject(jsonStr);
+```
+
+**解析 JSONObject：**
+
+1）获取对象
+
+```java
+JSONObject dispositionNotificationListObject = json.getJSONObject("DispositionNotificationListObject");
+```
+
+2）获取单值
+
+```java
+String alertPersonName = personObject.getStr("Name");
+Integer eventSort = subImageInfoObject.getInt("EventSort");
+```
+
+**字符串 转 JSONArray**
+
+```java
+String jsonArrayStr = "[{\"Type\":\"11\",\"StoragePath\":\"http://192.168.166.203:11180/storage/v1/image/global?cluster_id=ShenSi&uri_base64=bm9ybWFsOi8vcmVwb3NpdG9yeS1idWlsZGVyLzIwMjAwMTIwL1ZRQnV1LVlsWFpGd29lN1dJSnlXUmc9PUAx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134716\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1},{\"Type\":\"11\",\"StoragePath\":\"http://192.168.166.203:11180/storage/v1/image/global?cluster_id=ShenSi&uri_base64=bm9ybWFsOi8vcmVwb3NpdG9yeS1idWlsZGVyLzIwMjAwMTIwL0gzc1dYN3lXRmh1Zmd0Sjd6Tlo1cnc9PUAx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134600\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1},{\"Type\":\"14\",\"StoragePath\":\"http://192.168.166.203:11180/storage/v1/image/global?cluster_id=ShenSi&uri_base64=bm9ybWFsOi8vcmVwb3NpdG9yeS1idWlsZGVyLzIwMjAwMTIwL0JXS3RIQm1aVXpUT3prNzJOYW50S1E9PUAx\",\"DeviceID\":\"0\",\"ImageID\":\"022019121117052900016\",\"EventSort\":0,\"ShotTime\":\"19700119134600\",\"Height\":-1,\"FileFormat\":\"jpg\",\"Width\":-1}]";
+JSONArray jsonArray = new JSONArray(jsonArrayStr);
+```
+
+**解析 JSONArray：**
+
+1）获取数组对象
+
+```java
+JSONArray subImageInfoObjectList = subImageList.getJSONArray("SubImageInfoObject");
+```
+
+2）获取单值
+
+```java
+for(int j=0; j< jsonArray.size(); j++){
+    JSONObject subImageInfoObject = jsonArray.getJSONObject(j);
+    String Type = subImageInfoObject.getStr("Type");
+    Integer width = subImageInfoObject.getInt("Width");   
+    System.out.println(Type);
+}
+```
 
 
 ### tips:
