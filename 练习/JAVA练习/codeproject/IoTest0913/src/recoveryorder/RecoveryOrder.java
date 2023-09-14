@@ -2,6 +2,8 @@ package recoveryorder;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class RecoveryOrder {
             while ((temp = fileReader.readLine())!=null){
                 readString.add(n++, temp);
             }
-            readString.sort((r1,r2)->Integer.parseInt(r1.substring(0,1))-Integer.parseInt(r2.substring(0,1)));
+            readString.sort(Comparator.comparingInt(r -> Integer.parseInt(r.substring(0, 1))));
             for (String str : readString){
                 fileWriter.write(str+"\n");
             }
