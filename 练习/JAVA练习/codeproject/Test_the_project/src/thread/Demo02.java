@@ -25,7 +25,6 @@ public class Demo02 {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-//                        System.out.println(Thread.currentThread().getName() + "  " + num);
                     }
                 }
             }
@@ -45,7 +44,6 @@ public class Demo02 {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-//                        System.out.println(Thread.currentThread().getName() + "  " + num);
                     }
                 }
             }
