@@ -16,7 +16,7 @@ public class Demo02 {
 
             @Override
             public void run() {
-                while (i< 100) {
+                while (i< 1000) {
                     i++;
                     synchronized (this) {
                         num.getAndIncrement();
@@ -35,7 +35,7 @@ public class Demo02 {
 
             @Override
             public void run() {
-                while (i< 100) {
+                while (i< 1000) {
                     i++;
                     synchronized (this) {
                         num.getAndDecrement();
@@ -49,9 +49,11 @@ public class Demo02 {
             }
         };
         for (int i = 0; i < 5; i++) {
-            new Thread(a,"累加"+i).start();
+
             new Thread(d,"累减"+i).start();
         }
+        for (int i = 0; i < 6; i++) {
+        new Thread(a,"累加"+i).start();}
         System.out.println(num);
     }
 }
