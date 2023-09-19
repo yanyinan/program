@@ -11,7 +11,6 @@ public class Demo02 {
     public static void main(String[] args) {
         AtomicInteger num = new AtomicInteger();
         Runnable a = new Runnable() {
-
             int i = 0;
 
             @Override
