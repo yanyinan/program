@@ -1,8 +1,8 @@
 package thread;
 
 import java.time.LocalTime;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static java.lang.Thread.sleep;
 
@@ -11,10 +11,9 @@ import static java.lang.Thread.sleep;
  * @author:nanzhou
  * @date:
  */
-public class CachedThreadPoolDemo03 {
+public class SingleThreadScheduledExecutorDemo06 {
     public static void main(String[] args) {
-        ExecutorService pool = Executors.newCachedThreadPool();
-        System.out.println(LocalTime.now());
+        ScheduledExecutorService pool = Executors.newSingleThreadScheduledExecutor();
         for (int i = 0;i <10;i++){
             int number = i;
             pool.execute(new Runnable() {

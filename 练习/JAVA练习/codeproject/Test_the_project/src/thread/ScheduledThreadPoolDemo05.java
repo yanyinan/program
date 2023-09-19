@@ -12,13 +12,14 @@ import static java.lang.Thread.sleep;
  * @author:nanzhou
  * @date:
  */
-public class Demo05 {
+public class ScheduledThreadPoolDemo05 {
     public static void main(String[] args) {
-        ScheduledExecutorService pool = Executors.newScheduledThreadPool(2);
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(4);
         System.out.println(LocalTime.now());
         for (int i = 0;i < 3;i++){
             int number = i;
-            pool.schedule(new Runnable() {
+//            pool.schedule(new Runnable() {
+            pool.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
                     System.out.println("当前时间" + LocalTime.now() + "，线程" + Thread.currentThread().getName() + "，序号" + number);
@@ -28,7 +29,7 @@ public class Demo05 {
                         throw new RuntimeException(e);
                     }
                 }
-            },5,TimeUnit.SECONDS);
+            },2,5,TimeUnit.SECONDS);
         }
     }
 }
