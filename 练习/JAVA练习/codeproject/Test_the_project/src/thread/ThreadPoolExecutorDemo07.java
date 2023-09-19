@@ -23,7 +23,7 @@ public class ThreadPoolExecutorDemo07 {
                 new LinkedBlockingQueue<Runnable>(5),
                 // 默认线程工厂
                 Executors.defaultThreadFactory(),
-                // 阻塞队列的拒绝策略
+                // 阻塞队列的拒绝策略,添加抛出异常
                 new ThreadPoolExecutor.AbortPolicy()
         );
         // 模拟10个用户来办理业务，每个用户就是一个来自外部的请求 线程
