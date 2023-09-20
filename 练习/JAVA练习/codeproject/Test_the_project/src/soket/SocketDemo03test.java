@@ -1,12 +1,16 @@
 package soket;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.Base64;
 
 /**
  * @title:
@@ -14,28 +18,44 @@ import java.net.SocketException;
  * @date:
  */
 public class SocketDemo03test {
+    static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) throws SocketException {
-        DatagramPacket packet = new DatagramPacket(new byte[1024*11],1024*11);
-        try(DatagramSocket socket = new DatagramSocket(8888)) {
 
-            while (true){
-
-                socket.receive(packet);
-
-                File file = new File("C:\\Users\\26481\\Pictures\\copy.png");
+        File file = new File("C:\\Users\\26481\\Pictures\\copy.png");
+        try (
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
-                fileOutputStream.write(packet.getData(),0, packet.getLength());
-                fileOutputStream.close();
 
-//                String str = new String(packet.getData(), 0, packet.getLength());
-//
-//                System.out.println(str);
-//                byte[] bytes = "接收成功".getBytes();
-//                String[] strings = str.split(" ");
-//                //Todo
-//                DatagramPacket dp = new DatagramPacket(bytes, bytes.length, InetAddress.getByName(strings[1].split("/")[1]), 8191);
-//                socket.send(dp);
+                DatagramSocket socket = new DatagramSocket(8888);
+        ) {
+
+            //Todo 多次接收解码并写入
+            while (true){
+                //设置单次传输的容器以及长度
+                byte[] singleTransfer = new byte[1024 * SINGLE_TRANSFER_NUM*11];
+                DatagramPacket packet = new DatagramPacket(singleTransfer, singleTransfer.length);
+                socket.receive(packet);
+                String data = new String(packet.getData(),0,packet.getLength());
+                //Todo 解析Json
+                JSONObject jsonObject = JSONObject.parseObject(data);
+//                Gson gson = new Gson();
+//                JsonObject jsonObject = gson.fromJson(data,JsonObject.class);
+
+                if (jsonObject.getBoolean("end")){
+                    break;
+                }
+                String string = jsonObject.getString("data");
+                byte[] bytes1 = Base64.getDecoder().decode(string);
+                //写入流
+                fileOutputStream.write(bytes1);
+
             }
+            //Todo 反馈接收成功
+//            while (true) {
+//                socket.receive(packet);
+////                socket.getInetAddress();
+//                fileOutputStream.write(packet.getData(), 0, packet.getLength());
+//                fileOutputStream.close();
+//            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
