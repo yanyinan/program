@@ -16,11 +16,12 @@ import java.net.SocketException;
 public class SocketDemo03test {
     public static void main(String[] args) throws SocketException {
         DatagramPacket packet = new DatagramPacket(new byte[1024*11],1024*11);
-        DatagramSocket socket = new DatagramSocket(8888);
-        try {
+        try(DatagramSocket socket = new DatagramSocket(8888)) {
+
             while (true){
 
                 socket.receive(packet);
+
                 File file = new File("C:\\Users\\26481\\Pictures\\copy.png");
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(packet.getData(),0, packet.getLength());
@@ -37,8 +38,6 @@ public class SocketDemo03test {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            socket.close();
         }
 
     }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.*;
-import java.util.Scanner;
 
 /**
  * @title:
@@ -12,41 +11,33 @@ import java.util.Scanner;
  * @date:
  */
 public class SocketDemo03 {
-    static Scanner input  = new Scanner(System.in);
     public static void main(String[] args) {
-        DatagramSocket datagramSocket = null;
         InetAddress address;
-        try {
-            datagramSocket = new DatagramSocket();
+        //指定文件流
+        File file = new File("C:\\Users\\26481\\Pictures\\linux.png");
+        try( DatagramSocket datagramSocket = new DatagramSocket();
+             FileInputStream fileInputStream = new FileInputStream(file);) {
 
+            //指定 IP
             address = InetAddress.getByName("10.0.4.196");
-//            address = InetAddress.getLocalHost();
+            //指定当前下标
+            //address = InetAddress.getLocalHost();
+
+            //指定端口
             int port = 8888;
 
-            File file = new File("C:\\Users\\26481\\Pictures\\linux.png");
-            FileInputStream fileInputStream = new FileInputStream(file);
-
+            //
+            //传输字节数组容器
             byte[] bytes = fileInputStream.readAllBytes();
-            fileInputStream.close();
-
+            //字节数组打包
             DatagramPacket dp = new DatagramPacket(bytes, bytes.length, address, port);
+            //发送
             datagramSocket.send(dp);
             System.out.println("发送成功");
-
-            //接受反馈
-//            DatagramSocket socket = new DatagramSocket(8191);
-//            DatagramPacket packet = new DatagramPacket(new byte[Integer.MAX_VALUE], Integer.MAX_VALUE);
-//            socket.receive(packet);
-//            String str = new String(packet.getData(), 0, packet.getLength());
-//            System.out.println(str);
-//            socket.close();
 
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            assert datagramSocket != null;
-            datagramSocket.close();
         }
 
 
