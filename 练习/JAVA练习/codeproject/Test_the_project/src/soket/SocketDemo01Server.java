@@ -1,8 +1,12 @@
 package soket;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.*;
+import java.net.DatagramPacket;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Base64;
 
 /**
  * @title:
@@ -10,26 +14,48 @@ import java.net.Socket;
  * @date:
  */
 public class SocketDemo01Server {
+    static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8087);
-        Socket server = serverSocket.accept();
+        File file = new File("C:\\Users\\26481\\Pictures\\copy.txt");
+        try (ServerSocket serverSocket = new ServerSocket(8888);
+             Socket server = serverSocket.accept();
+             InputStream inputStream = server.getInputStream();
+             OutputStream outputStream = server.getOutputStream();
+             FileOutputStream fileOutputStream = new FileOutputStream(file,true);) {
 
-        InputStream inputStream = server.getInputStream();
-        OutputStream outputStream = server.getOutputStream();
-
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String info = null;
-        while ((info = bufferedReader.readLine()) != null){
-            System.out.println("服务端，客户响应的内容"+info);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//            while (true){
+//                //设置单次传输的容器以及长度
+//                byte[] singleTransfer = new byte[1024 * SINGLE_TRANSFER_NUM*11];
+//
+//                String data = new String();
+//                //Todo 解析Json
+//                JSONObject jsonObject = JSONObject.parseObject(data);
+////                Gson gson = new Gson();
+////                JsonObject jsonObject = gson.fromJson(data,JsonObject.class);
+//
+//                if (jsonObject.getBoolean("end")){
+//                    break;
+//                }
+//                String string = jsonObject.getString("data");
+//                byte[] bytes1 = Base64.getDecoder().decode(string);
+//                //写入流
+//                fileOutputStream.write(bytes1);
+//
+//            }
+            String info = null;
+            while ((info = bufferedReader.readLine()) != null) {
+//                System.out.println(info);
+                JSONObject jsonObject = JSONObject.parseObject(info);
+                String string = jsonObject.getString("data");
+                byte[] bytes1 = Base64.getDecoder().decode(string);
+                fileOutputStream.write(bytes1);
+            }
+            //反馈
+            String reply = "传输成功";
+            outputStream.write(reply.getBytes());
+            bufferedReader.close();
         }
-//        String reply = "登录成功";
-//
-//        outputStream.write(reply.getBytes());
-//
-        bufferedReader.close();
-        inputStream.close();
-        outputStream.close();
-        serverSocket.close();
-        server.close();
+
     }
 }

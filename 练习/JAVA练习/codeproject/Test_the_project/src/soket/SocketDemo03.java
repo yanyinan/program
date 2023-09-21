@@ -32,7 +32,7 @@ public class SocketDemo03 {
             //指定端口
             int port = 8888;
 
-            //次传输
+            //多次次传输
             //设置单次传输的容器以及长度
             byte[] singleTransfer = new byte[1024 * SINGLE_TRANSFER_NUM];
             int transferlength = 0;
