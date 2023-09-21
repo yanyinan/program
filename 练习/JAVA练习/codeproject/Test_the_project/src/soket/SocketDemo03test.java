@@ -21,7 +21,7 @@ public class SocketDemo03test {
     static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) throws SocketException {
 
-        File file = new File("C:\\Users\\26481\\Pictures\\copy.png");
+        File file = new File("C:\\Users\\26481\\Pictures\\copy.txt");
         try (
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
 
@@ -47,6 +47,7 @@ public class SocketDemo03test {
                 byte[] bytes1 = Base64.getDecoder().decode(string);
                 //写入流
                 fileOutputStream.write(bytes1);
+//                fileOutputStream.write(data.getBytes());
 
             }
             //Todo 反馈接收成功

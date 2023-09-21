@@ -16,7 +16,7 @@ import java.util.Base64;
 public class SocketDemo01Server {
     static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) throws IOException {
-        File file = new File("C:\\Users\\26481\\Pictures\\copy.txt");
+        File file = new File("C:\\Users\\26481\\Pictures\\copy.jpg");
         try (ServerSocket serverSocket = new ServerSocket(8888);
              Socket server = serverSocket.accept();
              InputStream inputStream = server.getInputStream();
@@ -45,11 +45,13 @@ public class SocketDemo01Server {
 //            }
             String info = null;
             while ((info = bufferedReader.readLine()) != null) {
-//                System.out.println(info);
-                JSONObject jsonObject = JSONObject.parseObject(info);
-                String string = jsonObject.getString("data");
-                byte[] bytes1 = Base64.getDecoder().decode(string);
-                fileOutputStream.write(bytes1);
+//                JSONObject jsonObject = JSONObject.parseObject(info);
+//                String string = jsonObject.getString("data");
+////                byte[] bytes1 = Base64.getDecoder().decode(string);
+////                //写入流
+//                fileOutputStream.write(string.getBytes());
+                System.out.println(info);
+                fileOutputStream.write(info.getBytes());
             }
             //反馈
             String reply = "传输成功";

@@ -17,13 +17,13 @@ import java.util.Base64;
 public class SocketDemo01 {
     static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) {
-        File file = new File("C:\\Users\\26481\\Pictures\\linux.png");
+        File file = new File("C:\\Users\\26481\\Pictures\\linux.jpg");
         try(Socket client = new Socket("localhost",8888);
             OutputStream outputStream = client.getOutputStream();
             InputStream inputStream = client.getInputStream();
             FileInputStream fileInputStream = new FileInputStream(file);) {
-            //多次次传输
-            //设置单次传输的容器以及长度
+//            多次次传输
+//            设置单次传输的容器以及长度
             byte[] singleTransfer = new byte[1024 * SINGLE_TRANSFER_NUM];
             int transferlength = 0;
             //多次传输读取判断
