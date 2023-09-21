@@ -41,6 +41,13 @@ public class SocketDemo01 {
                 outputStream.write(stringTransferJson.getBytes());
 
             }
+            JsonObject transferJson = new JsonObject();
+            //加载数据
+            transferJson.addProperty("end", true);
+            transferJson.addProperty("data","");
+            String stringTransferJson = transferJson.toString();
+            //发送
+            outputStream.write(stringTransferJson.getBytes());
 //            outputStream.write(fileInputStream.readAllBytes());
 
             //阻塞等待接收

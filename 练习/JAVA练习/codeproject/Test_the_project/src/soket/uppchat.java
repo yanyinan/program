@@ -14,12 +14,12 @@ public class uppchat {
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
 
-        int port = 9999;
+        int port = 8888;
         try {
             while (true){
                 String Ip = String.valueOf(InetAddress.getLocalHost());
                 Socket send = new Socket("localhost",port);
-                InputStream sendInput = send.getInputStream();
+//                InputStream sendInput = send.getInputStream();
 
                 String message = "";
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(send.getOutputStream()));
@@ -32,7 +32,7 @@ public class uppchat {
 
                 //接收反馈
                 String reply = null;
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(sendInput));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(send.getInputStream()));
                 while ((reply = bufferedReader.readLine()) != null) {
                     System.out.println("对方回复" + reply);
                 }

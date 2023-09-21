@@ -15,13 +15,14 @@ import java.util.Base64;
  */
 public class SocketDemo01Server {
     static final int SINGLE_TRANSFER_NUM = 1;
+
     public static void main(String[] args) throws IOException {
         File file = new File("C:\\Users\\26481\\Pictures\\copy.png");
         try (ServerSocket serverSocket = new ServerSocket(1231);
              Socket server = serverSocket.accept();
              InputStream inputStream = server.getInputStream();
              OutputStream outputStream = server.getOutputStream();
-             FileOutputStream fileOutputStream = new FileOutputStream(file,true);) {
+             FileOutputStream fileOutputStream = new FileOutputStream(file, true);) {
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 //            while (true){
@@ -44,20 +45,25 @@ public class SocketDemo01Server {
 //
 //            }
             String info = null;
+            String data = "";
+            //Todo 解析Json
             while ((info = bufferedReader.readLine()) != null) {
-//                JSONObject jsonObject = JSONObject.parseObject(info);
-//                String string = jsonObject.getString("data");
-////                byte[] bytes1 = Base64.getDecoder().decode(string);
-////                //写入流
-//                fileOutputStream.write(string.getBytes());
-                System.out.println(info);
-//                fileOutputStream.write(info.getBytes());
+                data += info;
             }
-            //反馈
-            String reply = "传输成功";
-            outputStream.write(reply.getBytes());
-            bufferedReader.close();
-        }
+            System.out.println(data);
+            JSONObject jsonObject = JSONObject.parseObject(data);
+            String string = jsonObject.getString("data");
+                byte[] bytes1 = Base64.getDecoder().decode(string);
+//                //写入流
+                fileOutputStream.write(bytes1);
 
+
+        }
+        //反馈
+        String reply = "传输成功";
+//            outputStream.write(reply.getBytes());
+//            bufferedReader.close();
     }
+
 }
+
