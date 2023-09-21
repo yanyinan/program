@@ -51,7 +51,7 @@ public class SocketDemo01Server {
 ////                //写入流
 //                fileOutputStream.write(string.getBytes());
                 System.out.println(info);
-                fileOutputStream.write(info.getBytes());
+//                fileOutputStream.write(info.getBytes());
             }
             //反馈
             String reply = "传输成功";
