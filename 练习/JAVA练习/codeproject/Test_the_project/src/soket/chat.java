@@ -16,28 +16,21 @@ import java.util.Scanner;
  * @date:
  */
 public class chat {
-
     static Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
-        try(Socket client = new Socket("localhost",8888);
-            OutputStream outputStream = client.getOutputStream();
-            InputStream inputStream = client.getInputStream();
-           ) {
-            String str = "";
+        try{
+            String message = "";
             while (true) {
+                Socket client = new Socket("localhost",9999);
+                InputStream inputStream = client.getInputStream();
+                OutputStream outputStream = client.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                message = input.nextLine();
+                writer.write(message);
+                writer.newLine();
+                writer.flush();
 
-//                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-//                String message = input.nextLine();
-//                writer.write(message);
-//                writer.newLine();
-//                writer.flush();
-//                //发送
-                str = input.nextLine();
-                outputStream.write(str.getBytes());
-                outputStream.flush();
-//               //阻塞等待接收
                 client.shutdownOutput();
-
 
                 //接收反馈
                 String reply = null;
@@ -45,9 +38,9 @@ public class chat {
                 while ((reply = bufferedReader.readLine()) != null) {
                     System.out.println("对方回复" + reply);
                 }
+                client.shutdownInput();
+//                client.close();
 
-
-//                client.shutdownInput();
             }
 
         } catch (UnknownHostException e) {

@@ -17,7 +17,7 @@ public class SocketDemo01Server {
     static final int SINGLE_TRANSFER_NUM = 1;
     public static void main(String[] args) throws IOException {
         File file = new File("C:\\Users\\26481\\Pictures\\copy.jpg");
-        try (ServerSocket serverSocket = new ServerSocket(8888);
+        try (ServerSocket serverSocket = new ServerSocket(9999);
              Socket server = serverSocket.accept();
              InputStream inputStream = server.getInputStream();
              OutputStream outputStream = server.getOutputStream();
