@@ -66,14 +66,14 @@ public class JdbcDemo02 {
     /**
      * 基础删除
      *
-     * @param TableName 删除表名
+     * @param tableName 删除表名
      * @param condition 条件
      */
-    private static void del(String TableName, String condition) {
+    private static void del(String tableName, String condition) {
         // 建立链接，执行操作
         try (Statement statement = con().createStatement();) {
             //sql语句
-            String sql = "delete from %s where %s;".formatted(TableName, condition);
+            String sql = "delete from %s where %s;".formatted(tableName, condition);
             //执行 sql 检测是否成功
             if (statement.executeUpdate(sql) > 0) {
                 System.out.println("删除成功");
@@ -169,8 +169,8 @@ public class JdbcDemo02 {
         try (Statement statement = con().createStatement();) {
             //Sql 语句
             String sql = "select %s from %s;".formatted(content, tableName);
-            boolean execute = statement.execute(sql);
-            if (execute) {
+
+            if (statement.execute(sql)) {
                 System.out.println("执行成功");
             }
             // sql 执行的结果
@@ -203,9 +203,9 @@ public class JdbcDemo02 {
             String category = "232";
             int price = 121;
             //Sql 语句
-            String opar = "insert into products(product_id, product_name, category, price) values (%d,%s,%s,%d)".formatted(product_id, product_name, category, price);
+            String par = "insert into products(product_id, product_name, category, price) values (%d,%s,%s,%d)".formatted(product_id, product_name, category, price);
             //检测是否成功
-            if (statement.executeUpdate(opar) > 0) {
+            if (statement.executeUpdate(par) > 0) {
                 System.out.println("成功");
             } else {
                 System.out.println("未添加成功");
@@ -223,13 +223,13 @@ public class JdbcDemo02 {
      * @param tableNameContent 待添加内容
      * @param values           添加内容
      */
-    private static void opar(String tableNameContent, String values) {
+    private static void addSql(String tableNameContent, String values) {
         // 建立链接，执行操作
-        try (Statement statement = con().createStatement();) {
+        try (Statement statement = con().createStatement()) {
             //Sql 语句
-            String opar = "insert into %s values (%s)".formatted(tableNameContent, values);
+            String par = "insert into %s values (%s)".formatted(tableNameContent, values);
             //检测是否成功
-            if (statement.executeUpdate(opar) > 0) {
+            if (statement.executeUpdate(par) > 0) {
                 System.out.println("成功");
             } else {
                 System.out.println("未添加成功");
