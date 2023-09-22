@@ -34,6 +34,8 @@ public class pingtest {
                 String url = website.getString("url").split("https://")[1];
                 pingCallble.setName(name);
                 pingCallble.setUrl(url);
+                System.out.println(name);
+                System.out.println(url);
 //                FutureTask<Integer> futureTask = new FutureTask<>(pingCallble);
                 poolExecutor.submit(pingCallble);
             }
