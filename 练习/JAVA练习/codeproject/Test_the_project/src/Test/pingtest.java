@@ -1,9 +1,14 @@
 package Test;
 
+import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.util.concurrent.Callable;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @title:
@@ -12,18 +17,38 @@ import java.net.InetAddress;
  */
 public class pingtest {
 
-    public static void main(String[] args) {
-        //查看一下当前系统的编码方式
-        //因为是调用系统的ping命令 返回结果是使用系统的编码的
-        System.out.println(System.getProperty("sun.jnu.encoding"));
+    public static void main(String[] args) throws InterruptedException {
+        PingCallble pingCallble = new PingCallble();
+        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+        for (int i = 0 ;i<5;i++){
+            Thread.sleep(600);
+            System.out.println("第" + i + "次执行");
+            poolExecutor.submit(pingCallble);
+        }
+
+
+    }
+}
+class PingCallble implements Callable{
+
+    @Override
+    public Object call() throws Exception {
         String name = "云创动力";
         String url = "www.kaifamiao.dev";
-        work(name,url);
+        return pingStart(name,url);
     }
-
-    private static void work(String name, String url) {
+    /**
+     * ping 开关
+     * @param name
+     * @param url
+     */
+    private  int pingStart(String name, String url) {
         String line = null;
         String data = "";
+        String[] datagram = new String[0];
+        String temp = "";
+        temp += name + "(" + url + ")\n";
+        int n = 0;
         try {
             Process pro = Runtime.getRuntime().exec("ping " + url);
             BufferedReader buf = new BufferedReader(new InputStreamReader(
@@ -31,16 +56,32 @@ public class pingtest {
             while ((line = buf.readLine()) != null) {
                 data += line + "\n";
             }
-            String[] datagroup = data.split("\\n");
-            System.out.println(name + "(" + url + ")");
-            if (datagroup.length > 1) {
-                System.out.println(data.split("\\n")[8]);
-                System.out.println(data.split("\\n")[10]);
-            } else {
-                System.out.println("链接失败");
-            }
+            datagram = data.split("\\n");
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        return DataIntegration(datagram,temp);
     }
+
+    /**
+     * 数据整合
+     * @param datagram 待整合字符串数组
+     * @param temp 字符串
+     * @return
+     */
+    private  int DataIntegration(String[] datagram, String temp) {
+        int n = 0;
+        if (datagram.length > 1) {
+            n++;
+            temp += datagram[8] + "\n";
+            temp += datagram[10] + "\n";
+        } else {
+            temp += "链接失败";
+        }
+        System.out.println(temp);
+        System.out.println(n);
+        return n;
+    }
+
 }
