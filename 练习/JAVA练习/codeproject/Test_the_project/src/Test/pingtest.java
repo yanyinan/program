@@ -1,14 +1,11 @@
 package Test;
 
-import javax.xml.crypto.Data;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.util.concurrent.Callable;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.io.*;
+import java.util.concurrent.*;
 
 /**
  * @title:
@@ -17,25 +14,59 @@ import java.util.concurrent.TimeUnit;
  */
 public class pingtest {
 
-    public static void main(String[] args) throws InterruptedException {
-        PingCallble pingCallble = new PingCallble();
+    public static void main(String[] args)  {
+        int n = 0;
+
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
-        for (int i = 0 ;i<5;i++){
-            Thread.sleep(600);
-            System.out.println("第" + i + "次执行");
-            poolExecutor.submit(pingCallble);
+
+        File file = new File("C:\\Users\\26481\\Desktop\\git_up\\progrmstudynote\\练习\\JAVA练习\\codeproject\\Test_the_project\\src\\Test\\test.json");
+        try(FileInputStream fileInputStream = new FileInputStream(file);){
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream, "utf-8"));
+            String line = null;
+            String data ="";
+            while ((line = br.readLine()) != null) {
+                data+=line;
+            }
+            JSONObject jsonObject = JSON.parseObject(data);
+            JSONArray websites = jsonObject.getJSONArray("websites");
+            for (int i = 0; i < websites.size(); i++) {
+                JSONObject website = websites.getJSONObject(i);
+                PingCallble pingCallble = new PingCallble();
+                pingCallble.setName(website.getString("name"));
+                pingCallble.setUrl(website.getString("url").split("https://")[1]);
+                FutureTask<Integer> futureTask = new FutureTask<>(pingCallble);
+                poolExecutor.submit(futureTask);
+
+            }
+            System.out.println(n);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+
+
+    } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
     }
-}
-class PingCallble implements Callable{
+static class PingCallble implements Callable<Integer>{
+
+    String name = "";
+    String url = "";
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     @Override
-    public Object call() throws Exception {
-        String name = "云创动力";
-        String url = "www.kaifamiao.dev";
-        return pingStart(name,url);
+    public Integer call() throws Exception {
+
+
+        return null;
     }
     /**
      * ping 开关
@@ -80,7 +111,7 @@ class PingCallble implements Callable{
             temp += "链接失败";
         }
         System.out.println(temp);
-        System.out.println(n);
+//        System.out.println(n);
         return n;
     }
 

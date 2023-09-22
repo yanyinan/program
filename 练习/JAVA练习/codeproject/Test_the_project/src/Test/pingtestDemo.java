@@ -11,9 +11,14 @@ import java.io.InputStreamReader;
 public class pingtestDemo {
     public static void main(String[] args) {
         System.out.println(System.getProperty("sun.jnu.encoding"));
+        jiexi();
         String name = "云创动力";
         String url = "www.kaifamiao.dev";
         System.out.println(pingStart(name, url));
+    }
+
+    private static void jiexi() {
+
     }
 
     /**
