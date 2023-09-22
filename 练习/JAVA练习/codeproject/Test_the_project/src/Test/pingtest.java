@@ -15,8 +15,6 @@ import java.util.concurrent.*;
 public class pingtest {
 
     public static void main(String[] args)  {
-        int n = 0;
-
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
         File file = new File("C:\\Users\\26481\\Desktop\\git_up\\progrmstudynote\\练习\\JAVA练习\\codeproject\\Test_the_project\\src\\Test\\test.json");
@@ -32,27 +30,26 @@ public class pingtest {
             for (int i = 0; i < websites.size(); i++) {
                 JSONObject website = websites.getJSONObject(i);
                 PingCallble pingCallble = new PingCallble();
-                pingCallble.setName(website.getString("name"));
-                pingCallble.setUrl(website.getString("url").split("https://")[1]);
-                FutureTask<Integer> futureTask = new FutureTask<>(pingCallble);
-                poolExecutor.submit(futureTask);
-
+                String name = website.getString("name");
+                String url = website.getString("url").split("https://")[1];
+                pingCallble.setName(name);
+                pingCallble.setUrl(url);
+//                FutureTask<Integer> futureTask = new FutureTask<>(pingCallble);
+                poolExecutor.submit(pingCallble);
             }
-            System.out.println(n);
+
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-
-
-    } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-static class PingCallble implements Callable<Integer>{
 
-    String name = "";
-    String url = "";
+    }
+}
+class PingCallble implements Callable<Integer> {
+
+    private String name = "";
+    private String url = "";
 
     public void setName(String name) {
         this.name = name;
@@ -64,16 +61,16 @@ static class PingCallble implements Callable<Integer>{
 
     @Override
     public Integer call() throws Exception {
-
-
-        return null;
+        return pingStart(name,url);
     }
+
     /**
      * ping 开关
+     *
      * @param name
      * @param url
      */
-    private  int pingStart(String name, String url) {
+    private int pingStart(String name, String url) {
         String line = null;
         String data = "";
         String[] datagram = new String[0];
@@ -92,16 +89,17 @@ static class PingCallble implements Callable<Integer>{
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        return DataIntegration(datagram,temp);
+        return DataIntegration(datagram, temp);
     }
 
     /**
      * 数据整合
+     *
      * @param datagram 待整合字符串数组
-     * @param temp 字符串
+     * @param temp     字符串
      * @return
      */
-    private  int DataIntegration(String[] datagram, String temp) {
+    private int DataIntegration(String[] datagram, String temp) {
         int n = 0;
         if (datagram.length > 1) {
             n++;
@@ -111,8 +109,7 @@ static class PingCallble implements Callable<Integer>{
             temp += "链接失败";
         }
         System.out.println(temp);
-//        System.out.println(n);
         return n;
     }
-
 }
+
