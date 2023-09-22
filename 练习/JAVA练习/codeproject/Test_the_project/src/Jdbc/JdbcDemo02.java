@@ -11,7 +11,60 @@ import java.sql.*;
 public class JdbcDemo02 {
 
     public static void main(String[] args) {
+//        select();
+//        addTable();
+        databases();
 
+    }
+
+    private static void databases() {
+        try {
+            //用户名
+            String name = "root";
+            //用户密码
+            String pass = "";
+            //数据库链接
+            String url = "jdbc:mysql://localhost:3306/";
+            // 加载驱动类， 解耦
+//            DriverManager.registerDriver(new Driver());
+            // 全限定类名
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //创建链接
+            Connection connection = DriverManager.getConnection(url, name, pass);
+
+            try (Statement statement = con().createStatement();) {
+                //sql语句
+                String sql = "CREATE DATABASE  db_addtest";
+//                String sql = "drop database db_addtest";
+                statement.execute(sql);
+
+                //关闭链接
+                con().close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * 添加表测试
+     */
+    private static void addTable() {
+        // 建立链接，执行操作
+        try (Statement statement = con().createStatement();) {
+            //sql语句
+            String sql = "create table test1(colum1 int, colum2 char);";
+            statement.execute(sql);
+            //关闭链接
+            con().close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -132,7 +185,7 @@ public class JdbcDemo02 {
         // 建立链接，执行操作
         try (Statement statement = con().createStatement();) {
             //Sql 语句
-            String sql = "select * from product;";
+            String sql = "select * from products;";
             //执行 sql 返回是否执行成功
             boolean execute = statement.execute(sql);
             //判断
