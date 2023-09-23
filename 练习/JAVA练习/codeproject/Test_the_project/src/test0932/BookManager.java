@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * @title:
@@ -15,6 +18,7 @@ import java.sql.SQLException;
  */
 public class BookManager {
 
+    static Scanner input = new Scanner(System.in);
     String user ="root";
     String pass = "";
     String url = "jdbc:mysql://localhost:3306/manger";
@@ -71,9 +75,36 @@ public class BookManager {
         }
 
     }
-    public void addBookInfo(){}
-    public void removeBook(){}
-    public void modifyBookQuantity(){}
+    public void addBookInfo() throws SQLException {
+        String sql = "insert into books values(?)";
+        String book_title, publication_date, author ;
+        Double price;
+        Integer quantity;
+//        System.out.println("书名");
+//        book_title = input.nextLine();
+//        System.out.println("日期");
+//        publication_date = input.nextLine();
+//        System.out.println("作者");
+//        author = input.nextLine();
+//        System.out.println("价格");
+//        price = input.nextDouble();
+//        System.out.println("数量");
+//        quantity = input.nextInt();
+//        bookSql.grud(sql,book_title,publication_date,author,price,quantity);
+        bookSql.grud(sql,1,"book_title","2023/2/2","author",12.1,1);
+    }
+    public void removeBook() throws SQLException {
+        String sql ="delete from books where id =?";
+        String content = input.nextLine();
+        bookSql.grud(sql,content);
+    }
+    public void modifyBookQuantity() throws SQLException {
+        String sql ="update books set quantity = ? where id =?;";
+        int quantity = input.nextInt();
+        int id = input.nextInt();
+        bookSql.grud(sql,quantity,id);
+        System.out.println("修改成功");
+    }
     public void showAllBooks(){}
     public void log(String desc) {}
 

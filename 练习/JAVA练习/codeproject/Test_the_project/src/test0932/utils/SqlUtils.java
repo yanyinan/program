@@ -26,7 +26,7 @@ public class SqlUtils {
     private String url;
     private Connection conn;
     private PreparedStatement prestate;
-
+    private ResultSet resultSet;
     /**
      * 有参构造
      * @param user 用户名
@@ -71,13 +71,30 @@ public class SqlUtils {
         prestate = conn().prepareStatement(sql);
         prestate.execute();
     }
-
+    //TODO 查询单个
+    /**
+     * 查询单个
+     * @param sql
+     * @param params
+     * @return
+     * @param <T>
+     */
     public <T> T selectOne(String sql,String... params){
         return null;
     }
-    public List<T> l selectAll(String sql, String... params){
+
+    //TODO 查询多个
+    /**
+     * 查询多个
+     * @param sql
+     * @param params
+     * @return
+     * @param <T>
+     */
+    public <T> List<T>selectAll(String sql, String... params){
         return null;
     }
+
     /**
      * GRUD操作
      * insert update
@@ -85,9 +102,10 @@ public class SqlUtils {
      * @param params
      * @throws SQLException
      */
-    public int update(String sql,String... params) throws SQLException {
+    public int grud(String sql,Object... params) throws SQLException {
         prestate = conn().prepareStatement(sql);
         setParams(params);
+        System.out.println(prestate);
         return prestate.executeUpdate();
     }
     /**
