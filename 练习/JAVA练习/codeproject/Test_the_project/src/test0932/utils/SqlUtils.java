@@ -117,7 +117,8 @@ public class SqlUtils {
         if (params != null){
             // 设置参数
             for (int i = 0; i < params.length; i++) {
-                prestate.setObject(i + 1, params[i]);
+                int j = i+1;
+                prestate.setObject(j , params[i]);
             }
         }
     }

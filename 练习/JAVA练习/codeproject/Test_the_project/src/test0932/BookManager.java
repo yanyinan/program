@@ -76,22 +76,22 @@ public class BookManager {
 
     }
     public void addBookInfo() throws SQLException {
-        String sql = "insert into books values(?)";
+        String sql = "insert into books(book_title,publication_date,author,price,quantity) values(?,?,?,?,?)";
         String book_title, publication_date, author ;
         Double price;
         Integer quantity;
-//        System.out.println("书名");
-//        book_title = input.nextLine();
-//        System.out.println("日期");
-//        publication_date = input.nextLine();
-//        System.out.println("作者");
-//        author = input.nextLine();
-//        System.out.println("价格");
-//        price = input.nextDouble();
-//        System.out.println("数量");
-//        quantity = input.nextInt();
-//        bookSql.grud(sql,book_title,publication_date,author,price,quantity);
-        bookSql.grud(sql,1,"book_title","2023/2/2","author",12.1,1);
+        System.out.println("书名");
+        book_title = input.nextLine();
+        System.out.println("日期");
+        publication_date = input.nextLine();
+        System.out.println("作者");
+        author = input.nextLine();
+        System.out.println("价格");
+        price = input.nextDouble();
+        System.out.println("数量");
+        quantity = input.nextInt();
+        bookSql.grud(sql,book_title,publication_date,author,price,quantity);
+//        bookSql.grud(sql,1,"book_title","2023/2/2","author",12.1,1);
     }
     public void removeBook() throws SQLException {
         String sql ="delete from books where id =?";
