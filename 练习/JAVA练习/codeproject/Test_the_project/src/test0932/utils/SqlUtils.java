@@ -1,9 +1,7 @@
 package test0932.utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 
 /**
  * @title:
@@ -63,11 +61,40 @@ public class SqlUtils {
             prestate.close();
         }
     }
-    public void initialize(String sql,String... params) throws SQLException {
+
+    /**
+     * 初始化表操作
+     * @param sql sql语句
+     * @throws SQLException
+     */
+    public void initialize(String sql) throws SQLException {
         prestate = conn().prepareStatement(sql);
-        setParams(params);
         prestate.execute();
     }
+
+    public <T> T selectOne(String sql,String... params){
+        return null;
+    }
+    public List<T> l selectAll(String sql, String... params){
+        return null;
+    }
+    /**
+     * GRUD操作
+     * insert update
+     * @param sql
+     * @param params
+     * @throws SQLException
+     */
+    public int update(String sql,String... params) throws SQLException {
+        prestate = conn().prepareStatement(sql);
+        setParams(params);
+        return prestate.executeUpdate();
+    }
+    /**
+     * 设置值
+     * @param params 元素
+     * @throws SQLException
+     */
     private void setParams(Object... params) throws SQLException {
         if (params != null){
             // 设置参数
