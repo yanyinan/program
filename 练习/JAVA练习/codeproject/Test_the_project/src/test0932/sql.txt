@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS books (
+    id INT AUTO_INCREMENT PRIMARY KEY COMMENT '编号',
+    book_title VARCHAR(255) NOT NULL COMMENT '书名',
+    publication_date DATE NOT NULL COMMENT '出版日期',
+    author VARCHAR(255) NOT NULL COMMENT '作者',
+    price DECIMAL(10, 2) NOT NULL COMMENT '价格',
+    quantity INT NOT NULL  COMMENT '数量'
+);
+
+CREATE TABLE IF NOT EXISTS operation_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '日志编号',
+    description varchar(255) NOT NULL COMMENT '描述(内容)',
+    operation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '时间'
+    
+);
