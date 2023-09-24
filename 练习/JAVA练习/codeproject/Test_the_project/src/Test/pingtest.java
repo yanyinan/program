@@ -49,9 +49,12 @@ public class pingtest {
     }
 }
 class PingCallble implements Callable<Integer> {
-
     private String name = "";
     private String url = "";
+    @Override
+    public Integer call() throws Exception {
+        return null;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -60,58 +63,71 @@ class PingCallble implements Callable<Integer> {
     public void setUrl(String url) {
         this.url = url;
     }
-
-    @Override
-    public Integer call() throws Exception {
-        return pingStart(name,url);
-    }
-
-    /**
-     * ping 开关
-     *
-     * @param name
-     * @param url
-     */
-    private int pingStart(String name, String url) {
-        String line = null;
-        String data = "";
-        String[] datagram = new String[0];
-        String temp = "";
-        temp += name + "(" + url + ")\n";
-        int n = 0;
-        try {
-            Process pro = Runtime.getRuntime().exec("ping " + url);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(
-                    pro.getInputStream(), "GBK"));
-            while ((line = buf.readLine()) != null) {
-                data += line + "\n";
-            }
-            datagram = data.split("\\n");
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return DataIntegration(datagram, temp);
-    }
-
-    /**
-     * 数据整合
-     *
-     * @param datagram 待整合字符串数组
-     * @param temp     字符串
-     * @return
-     */
-    private int DataIntegration(String[] datagram, String temp) {
-        int n = 0;
-        if (datagram.length > 1) {
-            n++;
-            temp += datagram[8] + "\n";
-            temp += datagram[10] + "\n";
-        } else {
-            temp += "链接失败";
-        }
-        System.out.println(temp);
-        return n;
-    }
 }
+//class PingCallble implements Callable<Integer> {
+//
+//    private String name = "";
+//    private String url = "";
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
+//
+//    @Override
+//    public Integer call() throws Exception {
+//        return pingStart(name,url);
+//    }
+//
+//    /**
+//     * ping 开关
+//     *
+//     * @param name
+//     * @param url
+//     */
+//    private int pingStart(String name, String url) {
+//        String line = null;
+//        String data = "";
+//        String[] datagram = new String[0];
+//        String temp = "";
+//        temp += name + "(" + url + ")\n";
+//        int n = 0;
+//        try {
+//            Process pro = Runtime.getRuntime().exec("ping " + url);
+//            BufferedReader buf = new BufferedReader(new InputStreamReader(
+//                    pro.getInputStream(), "GBK"));
+//            while ((line = buf.readLine()) != null) {
+//                data += line + "\n";
+//            }
+//            datagram = data.split("\\n");
+//
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//        return DataIntegration(datagram, temp);
+//    }
+//
+//    /**
+//     * 数据整合
+//     *
+//     * @param datagram 待整合字符串数组
+//     * @param temp     字符串
+//     * @return
+//     */
+//    private int DataIntegration(String[] datagram, String temp) {
+//        int n = 0;
+//        if (datagram.length > 1) {
+//            n++;
+//            temp += datagram[8] + "\n";
+//            temp += datagram[10] + "\n";
+//        } else {
+//            temp += "链接失败";
+//        }
+//        System.out.println(temp);
+//        return n;
+//    }
+//}
 
