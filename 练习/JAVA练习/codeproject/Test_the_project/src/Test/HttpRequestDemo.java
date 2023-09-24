@@ -26,13 +26,15 @@ public class HttpRequestDemo {
                 PingCallble pingCallble = new PingCallble();
                 String name = website.getString("name");
                 String url = website.getString("url").split("https://")[1];
-                int temp = iserver(url);
-                if (temp==200) {
+                String temp = iserver(url);
+                if ( Integer.parseInt(temp.split(" ")[0])==200) {
                     n++;
+                }else {
+                    temp = "ERROR "+temp.split(" ")[1];
                 }
                 System.out.println(name + "\thttps://" + url + "\t" + temp);
             }
-            
+            System.out.println("\n本次OK: " + n + "次\n本次ERROR: " + (websites.size() - n) + "\n成功率： " + ((double) n / websites.size() * 100) + "%");
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -42,18 +44,27 @@ public class HttpRequestDemo {
 
     }
 
-    private static Integer iserver(String s) {
+    private static String iserver(String s) {
         try (Socket socket = new Socket(s, 80);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         ) {
+            // 记录开始时间
+            long startTime = System.currentTimeMillis();
             out.println("GET / HTTP/1.1");
             out.println("Host: " + s);
             out.println("Connection: Close");
             out.println();
+            // 发送HTTP请求并读取响应数据
             String statusLine = in.readLine();
             statusLine = statusLine.split(" ")[1];
-            return Integer.parseInt(statusLine);
+            // 记录结束时间
+            long endTime = System.currentTimeMillis();
+
+            // 计算访问速度（单位为字节/秒）
+            double speed = (double) (endTime - startTime) / statusLine.length();
+
+            return  String.format("%s %.2f秒", statusLine, speed);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
