@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请求参数</title>
+</head>
+<body>
+
+<!-- 超链接传参 -->
+<a href="parameter?username=kfm&password=123456">发送请求并传递参数</a>
+<hr>
+<!--form 表单传参 -->
+<form action="parameter" method="post">
+    <input type="text" name="username" placeholder="请输入用户名">
+    <input type="password" name="password" placeholder="请输入密码">
+    <input type="checkbox" name="hobby" value="basketball">篮球
+    <input type="checkbox" name="hobby" value="football">足球
+    <input type="checkbox" name="hobby" value="pingpang">乒乓球
+    <input type="submit" value="提交" />
+</form>
+</body>
+</html>

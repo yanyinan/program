@@ -1,4 +1,4 @@
-package xyz.nanzhou.fw.servlet;
+package xyz.nanzhou.fw.servlet.demo;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
