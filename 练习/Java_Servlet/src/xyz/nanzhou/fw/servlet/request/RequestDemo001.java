@@ -28,25 +28,21 @@ public class RequestDemo001 extends HttpServlet {
         // 接收参数
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-//        System.out.println(username);
-//        System.out.println(password);
+
         // null 判断，合法性、有效性判断
         if (username != null && password != null
-                && "admin".equalsIgnoreCase(username) // jdbc 连接数据库, 从数据库中查询
+                // jdbc 连接数据库, 从数据库中查询
+                && "admin".equalsIgnoreCase(username)
                 && "a123456".equals(password)){
             // 登录成功
             // 记录登录状态
             req.setAttribute("login", true);
-            req.setAttribute("username", username);
-
-            // 转发到 indexServlet
-//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index");
-//            requestDispatcher.forward(request, response);
             req.getRequestDispatcher("index").forward(req, resp);
-            return; // 结束方法
+
         } else{
             // 登录失败
             resp.getWriter().println("login failed. username or password is wrong");
+            resp.setHeader("Refresh", "3;url=http://localhost:8080/Java_Servlet_war_exploded/login.html");
         }
     }
 }
