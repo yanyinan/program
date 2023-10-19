@@ -17,5 +17,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.81" level="application_server_libraries" />
+    <orderEntry type="library" name="easy-captcha-1.6.2" level="project" />
+    <orderEntry type="library" name="mysql-connector-j-8.0.32" level="project" />
   </component>
 </module>

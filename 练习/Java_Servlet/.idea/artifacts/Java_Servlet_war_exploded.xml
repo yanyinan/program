@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Java_Servlet" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-j-8.0.32" />
+          <element id="library" level="project" name="easy-captcha-1.6.2" />
+        </element>
       </element>
     </root>
   </artifact>
