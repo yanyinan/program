@@ -2,8 +2,9 @@ package entity.daoentity;
 
 import lombok.Data;
 
+
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * KfmFile 实体类
@@ -19,4 +20,5 @@ public class KfmFile implements Serializable {
     private Date createTime;
     private String uploadIp;
     private String downloadLink;
+
 }

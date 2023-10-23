@@ -92,9 +92,10 @@ public class UploadServlet extends HttpServlet {
             // session 中获取用户
             Object obj = req.getSession().getAttribute(UserConstant.LOGIN_USER);
             KfmUser user = (KfmUser) obj;
-            fileDO.setCreateUser(user.getId());
-            fileDO.setType(contentType);
-            fileDO.setPath("download/" + date + "/" + fileName + substring);
+//            文件属性
+//            fileDO.setCreateUser(user.getId());
+//            fileDO.setType(contentType);
+            fileDO.setDownloadLink("download/" + date + "/" + fileName + substring);
 
             try{
                 fileService.addFile(fileDO);

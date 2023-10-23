@@ -2,6 +2,7 @@ package servlet;
 
 
 import entity.daoentity.KfmFile;
+
 import service.FileService;
 
 import javax.servlet.ServletException;
@@ -14,10 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+
 @WebServlet("/file-list")
 public class FileServlet extends HttpServlet {
 
     private FileService fileService = new FileService();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +56,7 @@ public class FileServlet extends HttpServlet {
                           <th>序号</th>
                           <th>文件名</th>
                           <th>大小</th>
-                          <th>上传时间</th>
+                  
                            <th>操作</th>
                         </tr>
                 """);
@@ -68,9 +71,9 @@ public class FileServlet extends HttpServlet {
                        <td>%d</td>
                        <td>%s</td>
                        <td>%s</td>
-                       <td>%s</td>
+            
                        <td>%s</td> 
-                    """.formatted(i++, file.getName(), Math.ceil(file.getSize() / 1024.0) + "KB", formatDate(file.getCreateTime()), "<a href='" + file.getDownloadLink() + "' target='_blank'>下载</a>"));
+                    """.formatted(i++, file.getName(), Math.ceil(file.getSize() / 1024.0) + "KB","<a href='" + file.getDownloadLink() + "' target='_blank'>下载</a>"));
         }
 
         htmlBuilder.append("""
@@ -84,7 +87,7 @@ public class FileServlet extends HttpServlet {
 
     }
 
-    private String formatDate(Date date){
+    private String formatDate(Date date)  {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);
     }

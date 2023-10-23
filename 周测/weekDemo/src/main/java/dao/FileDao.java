@@ -23,8 +23,8 @@ public class FileDao {
 
     /**
      * 添加文件
-     * @param file 上传文件
-     * @return 添加失败返回 0
+     * @param file
+     * @return
      */
     public int save(KfmFile file) {
         String sql = "insert  into kfm_file(name,size,create_time,upload_ip,download_link) values(?,?,?,?,?)";
