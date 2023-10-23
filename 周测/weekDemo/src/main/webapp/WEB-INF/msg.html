@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改密码</title>
+</head>
+<body>
+<h1>修改密码</h1>
+<form action="/update_password" method="post">
+    <label for="old_password">旧密码：</label>
+    <input type="password" id="old_password" name="old_password" required><br><br>
+    <label for="new_password">新密码：</label>
+    <input type="password" id="new_password" name="new_password" required><br><br>
+    <label for="confirm_password">确认新密码：</label>
+    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
