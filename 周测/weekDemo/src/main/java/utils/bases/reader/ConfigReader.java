@@ -1,6 +1,6 @@
 package utils.bases.reader;
 
-import entity.dbutilentity.BasicDataSource;
+import entity.utilentity.BasicDataSource;
 
 import java.io.IOException;
 import java.io.InputStream;

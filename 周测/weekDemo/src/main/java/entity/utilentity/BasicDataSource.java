@@ -1,7 +1,6 @@
-package entity.dbutilentity;
+package entity.utilentity;
 
 import lombok.Data;
-import utils.bases.reader.ConfigReader;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package utils.dao.basesoperations;
 
-import entity.dbutilentity.BasicDataSource;
+import entity.utilentity.BasicDataSource;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
