@@ -5,9 +5,9 @@ package lico;
  * @author:nanzhou
  * @date:
  */
-public class Demo03 {
+public class longestPalindrome {
     public static void main(String[] args) {
-        System.out.println(longestPalindrome("babad"));
+        System.out.println(longestPalindrome("baaaabad"));
     }
 
 
@@ -30,8 +30,10 @@ public class Demo03 {
         // 递推开始
         // 先枚举子串长度
         for (int L = 2; L <= len; L++) {
+
             // 枚举左边界，左边界的上限设置可以宽松一些
             for (int i = 0; i < len; i++) {
+
                 // 由 L 和 i 可以确定右边界，即 j - i + 1 = L 得
                 int j = L + i - 1;
                 // 如果右边界越界，就可以退出当前循环
