@@ -11,7 +11,8 @@
         :table-data="tableData"
         :titles="titles"
         :props="props"
-        :remarks="remarks"
+        :remark="remark"
+        :title="title"
         background-color="#ccc"
         color="#fff"
       >
@@ -48,6 +49,7 @@
             titles: ["日期", "姓名", "地址"],
             props: ["date", "name", "address"],
             remark:["出生","中文","具体到弄"],
+            // title:"测试表",
           };
         },
       });
@@ -70,6 +72,10 @@
             type: Array,
             required: true,
           },
+          title: {
+            type: String,
+            default: "测试表",
+          },
           backgroundColor: {
             type: String,
             default: "#fff",
@@ -79,6 +85,7 @@
         data() {},
         methods: {},
         template: `
+        <h1 >{{title}}</h1>
             <table border='1' cellpadding='0' cellspacing='0' :style="{ 'background-color': backgroundColor, 'color': color }">
                 <thead>
                     <tr>
